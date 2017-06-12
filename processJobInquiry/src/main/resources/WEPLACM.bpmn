@@ -64,7 +64,7 @@
         <bpmn:targetRef>candidateDB</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
     </bpmn:serviceTask>
-    <bpmn:serviceTask id="checkCVsAvailability" name="Check if CVs are available" camunda:class="CVAvailabilityChecker">
+    <bpmn:serviceTask id="checkCVsAvailability" name="Check if CVs are available" camunda:class="CVAvailabilityCheck">
       <bpmn:incoming>SequenceFlow_1hp4dgj</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0ph069b</bpmn:outgoing>
       <bpmn:dataOutputAssociation />
@@ -168,7 +168,7 @@
       <bpmn:outgoing>SequenceFlow_0no0mlf</bpmn:outgoing>
       <bpmn:outgoing>SequenceFlow_1is3b3s</bpmn:outgoing>
     </bpmn:eventBasedGateway>
-    <bpmn:serviceTask id="filterCVsAfterEvaluation" name="Filter CVs" camunda:class="CVFilterEvaluation">
+    <bpmn:serviceTask id="filterCVsAfterEvaluation" name="Filter CVs" camunda:class="FilterCVEvaluation">
       <bpmn:incoming>SequenceFlow_1vq0fa6</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0nas0hh</bpmn:outgoing>
       <bpmn:dataOutputAssociation id="DataOutputAssociation_1popl79">
