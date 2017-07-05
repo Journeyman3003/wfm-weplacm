@@ -1,11 +1,11 @@
-package de.wwu.wfm.weplacm.processJobInquiry.services;
+package org.wwu.bpm.wfm.weplacm.processJobInquiry.services;
 
 import java.util.logging.Logger;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 
-public class FilterCVEvaluation implements JavaDelegate{
-	
+public class AddCVToCollectionDB implements JavaDelegate{
+
 	private final static Logger LOGGER = Logger.getLogger("JOB-INQUIRY");
 
 	public void execute(DelegateExecution execution) throws Exception {

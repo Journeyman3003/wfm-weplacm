@@ -1,4 +1,4 @@
-package de.wwu.wfm.weplacm.processJobInquiry;
+package org.wwu.bpm.wfm.weplacm.processJobInquiry;
 
 import org.camunda.bpm.application.ProcessApplication;
 import org.camunda.bpm.application.impl.ServletProcessApplication;

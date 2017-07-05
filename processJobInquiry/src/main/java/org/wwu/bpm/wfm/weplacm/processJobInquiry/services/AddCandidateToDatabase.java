@@ -1,4 +1,4 @@
-package de.wwu.wfm.weplacm.processJobInquiry.services;
+package org.wwu.bpm.wfm.weplacm.processJobInquiry.services;
 
 import java.util.logging.Logger;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
