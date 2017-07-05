@@ -312,7 +312,7 @@
         <bpmn:targetRef>CVDB</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
     </bpmn:serviceTask>
-    <bpmn:userTask id="checkInformationSufficiency" name="Check information sufficency" camunda:formKey="embedded:app:forms/check-information-sufficiency.html" camunda:candidateGroups="Inbox Employee" camunda:dueDate="${dateTime().plusDays(1).toDate()}">
+    <bpmn:userTask id="checkInformationSufficiency" name="Check information sufficency" camunda:formKey="embedded:app:forms/checkInformationSufficiency.html" camunda:candidateGroups="Inbox Employee" camunda:dueDate="${dateTime().plusDays(1).toDate()}">
       <bpmn:incoming>SequenceFlow_0x0002s</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1jn8dno</bpmn:outgoing>
     </bpmn:userTask>
