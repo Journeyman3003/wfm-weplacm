@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.8.1">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.8.0">
   <bpmn:collaboration id="Collaboration_07uxz03">
     <bpmn:participant id="weplacm" name="WEPLACM" processRef="weplacmProcessJobInquiry" />
     <bpmn:participant id="Participant_0ybt15j" name="Candidates" processRef="processCandidate" />
@@ -23,7 +23,7 @@
       <bpmn:outgoing>SequenceFlow_12cryst</bpmn:outgoing>
       <bpmn:messageEventDefinition messageRef="Message_09dx93p" />
     </bpmn:intermediateCatchEvent>
-    <bpmn:userTask id="postJobOpeningOnInternetSources" name="Post job opening on internet sources">
+    <bpmn:userTask id="postJobOpeningOnInternetSources" name="Post job opening on internet sources" camunda:formKey="embedded:app:forms/postJobOpeningOnInternetSources.html" camunda:candidateGroups="Inbox Employee" camunda:dueDate="${dateTime().plusDays(1).toDate()}">
       <bpmn:incoming>SequenceFlow_1k9743h</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_10vb3ph</bpmn:outgoing>
     </bpmn:userTask>
@@ -31,7 +31,7 @@
       <bpmn:incoming>SequenceFlow_0no0mlf</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1hp4dgj</bpmn:outgoing>
       <bpmn:timerEventDefinition>
-        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">${duration}</bpmn:timeDuration>
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">${dateTime().toDate()}</bpmn:timeDuration>
       </bpmn:timerEventDefinition>
     </bpmn:intermediateCatchEvent>
     <bpmn:sendTask id="sendApprovalForJobOpening" name="Send approval for job opening" camunda:class="org.wwu.bpm.wfm.weplacm.processJobInquiry.sendMessages.SendJobOpeningApproval">
@@ -203,7 +203,7 @@
       <bpmn:incoming>SequenceFlow_12cryst</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0aa3ctm</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:userTask id="evaluateCVs" name="Evaluate CVs">
+    <bpmn:userTask id="evaluateCVs" name="Evaluate CVs" camunda:formKey="embedded:app:forms/evaluateCVs.html" camunda:candidateGroups="Headhunter" camunda:dueDate="${dateTime().plusDays(1).toDate()}">
       <bpmn:incoming>SequenceFlow_1ibbg8d</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0ytvpau</bpmn:outgoing>
       <bpmn:property id="Property_0m92eia" name="__targetRef_placeholder" />
@@ -217,7 +217,7 @@
     </bpmn:userTask>
     <bpmn:dataObjectReference id="dataObjectEvaluationStandards" name="Evaluation standards" dataObjectRef="DataObject_1ltdhvm" />
     <bpmn:dataObject id="DataObject_1ltdhvm" />
-    <bpmn:userTask id="sortCVs" name="Sort CVs">
+    <bpmn:userTask id="sortCVs" name="Sort CVs" camunda:formKey="embedded:app:forms/sortCVs.html" camunda:candidateGroups="Headhunter" camunda:dueDate="${dateTime().plusDays(1).toDate()}">
       <bpmn:incoming>SequenceFlow_16hus2m</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1ibbg8d</bpmn:outgoing>
       <bpmn:dataOutputAssociation id="DataOutputAssociation_1i51l97">
@@ -225,7 +225,7 @@
       </bpmn:dataOutputAssociation>
     </bpmn:userTask>
     <bpmn:sequenceFlow id="SequenceFlow_1ibbg8d" sourceRef="sortCVs" targetRef="evaluateCVs" />
-    <bpmn:userTask id="backgroundCheck" name="Background Check">
+    <bpmn:userTask id="backgroundCheck" name="Background Check" camunda:formKey="embedded:app:forms/backgroundCheck.html" camunda:candidateGroups="Headhunter" camunda:dueDate="${dateTime().plusDays(1).toDate()}">
       <bpmn:incoming>SequenceFlow_1daf09w</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_16vok2p</bpmn:outgoing>
       <bpmn:dataOutputAssociation id="DataOutputAssociation_0kzmqhe">
@@ -266,7 +266,7 @@
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_09beh8f" sourceRef="NotifyCustomerNoCV3" targetRef="EndEvent_0j0m4bm" />
     <bpmn:sequenceFlow id="SequenceFlow_1yh1v0j" sourceRef="enhanceCVsWithRating" targetRef="sendRatedCVs" />
-    <bpmn:userTask id="enhanceCVsWithRating" name="Enhance CVs with rating">
+    <bpmn:userTask id="enhanceCVsWithRating" name="Enhance CVs with rating" camunda:formKey="embedded:app:forms/enhanceCVsWithRating.html" camunda:candidateGroups="Headhunter" camunda:dueDate="${dateTime().plusDays(1).toDate()}">
       <bpmn:incoming>SequenceFlow_0ze7kpb</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1yh1v0j</bpmn:outgoing>
       <bpmn:dataOutputAssociation id="DataOutputAssociation_168s173">

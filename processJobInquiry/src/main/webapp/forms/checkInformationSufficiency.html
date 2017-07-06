@@ -1,21 +1,32 @@
-<form class="form-horizontal"
-      role="form">
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		
+		<!-- jQuery library -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		
+		<!-- Latest compiled JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	</head>
+	<body>
+		<div class="container">
+			<h2>Please check the information sufficiency.</h2>
+			<p>Is the provided information sufficient for a job opening?</p>
+			<form role="form">
+				<label class="checkbox-inline">
+					<input cam-variable-name="sufficient" cam-variable-type="Boolean" type="checkbox" name="sufficient"> Yes!
+				</label>
+			</form>
+		</div>
+	</body>
+</html>
 
-  <p>Is the provided information sufficient?</p>
 
-  
-  <div class="form-group">
-    <div class="col-md-10 col-md-offset-2">
-      <div class="checkbox">
-        <label>
-          <input cam-variable-name="sufficient"
-                 cam-variable-type="Boolean"
-                 type="checkbox"
-                 name="sufficient"
-                 class="form-control" />
-          Do you approve?
-        </label>
-      </div>
-    </div>
-  </div>
-</form>
