@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app
-    version="3.0"
-    xmlns="http://java.sun.com/xml/ns/javaee"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+ xmlns:web="http://xmlns.jcp.org/xml/ns/javaee"
+ xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+ version="2.5">
   <servlet>
     <description></description>
     <display-name>StartProcessByJobInquiry</display-name>
@@ -13,5 +13,15 @@
   <servlet-mapping>
     <servlet-name>StartProcessByJobInquiry</servlet-name>
     <url-pattern>/job-inquiry</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ReceivePayment</display-name>
+    <servlet-name>ReceivePayment</servlet-name>
+    <servlet-class>org.wwu.bpm.wfm.weplacm.processJobInquiry.servlets.ReceivePayment</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ReceivePayment</servlet-name>
+    <url-pattern>/receive-payment</url-pattern>
   </servlet-mapping>
 </web-app>
