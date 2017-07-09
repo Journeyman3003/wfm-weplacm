@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.8.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.8.1">
   <bpmn:collaboration id="Collaboration_07uxz03">
     <bpmn:participant id="weplacm" name="WEPLACM" processRef="weplacmProcessJobInquiry" />
     <bpmn:participant id="Participant_0ybt15j" name="Candidates" processRef="processCandidate" />
@@ -178,10 +178,10 @@
     <bpmn:sequenceFlow id="SequenceFlow_0njqb1p" sourceRef="addCandidateToDB" targetRef="closingXORCandidateExisting" />
     <bpmn:sequenceFlow id="SequenceFlow_0ph069b" sourceRef="checkCVsAvailability" targetRef="openingXORCVAvailable" />
     <bpmn:sequenceFlow id="SequenceFlow_02t4jq8" name="no" sourceRef="openingXORCVAvailable" targetRef="NotifyCustomerNoCV1">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression"><![CDATA[$(x<=0)]]></bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!sufficient}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_134egp0" sourceRef="openingXORCVAvailable" targetRef="LoadCVs1">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression"><![CDATA[$(x>0)]]></bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${sufficient}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_1ef5tap" name="existing" sourceRef="openingXORCandidateExisting" targetRef="closingXORCandidateExisting">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">$(existing)</bpmn:conditionExpression>
@@ -189,10 +189,10 @@
     <bpmn:sequenceFlow id="SequenceFlow_0ytvpau" sourceRef="evaluateCVs" targetRef="filterCVsAfterEvaluation" />
     <bpmn:sequenceFlow id="SequenceFlow_0nas0hh" sourceRef="filterCVsAfterEvaluation" targetRef="openingXORCVsAvailableAfterEvaluation" />
     <bpmn:sequenceFlow id="SequenceFlow_0og13xr" name="yes" sourceRef="openingXORCVsAvailableAfterEvaluation" targetRef="LoadCVs2">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression"><![CDATA[$(x>1)]]></bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${sufficient}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_07y85n7" name="no" sourceRef="openingXORCVsAvailableAfterEvaluation" targetRef="NotifyCustomerNoCV2">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression"><![CDATA[$(x<=0)]]></bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!sufficient}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_16hus2m" sourceRef="LoadCVs1" targetRef="sortCVs" />
     <bpmn:sequenceFlow id="SequenceFlow_1daf09w" sourceRef="LoadCVs2" targetRef="backgroundCheck" />
@@ -259,10 +259,10 @@
     <bpmn:sequenceFlow id="SequenceFlow_1s1mwrm" sourceRef="sendRefusalAfterBackgroundCheck" targetRef="filterCVsAfterBackgroundCheck" />
     <bpmn:sequenceFlow id="SequenceFlow_1ei17xj" sourceRef="filterCVsAfterBackgroundCheck" targetRef="openingXORCVsAvailableAfterBackgroundCheck" />
     <bpmn:sequenceFlow id="SequenceFlow_0ze7kpb" name="yes" sourceRef="openingXORCVsAvailableAfterBackgroundCheck" targetRef="enhanceCVsWithRating">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">$(x==1)</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${sufficient}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_1hpkv9l" name="no" sourceRef="openingXORCVsAvailableAfterBackgroundCheck" targetRef="NotifyCustomerNoCV3">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">$(x==0)</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${sufficient}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_09beh8f" sourceRef="NotifyCustomerNoCV3" targetRef="EndEvent_0j0m4bm" />
     <bpmn:sequenceFlow id="SequenceFlow_1yh1v0j" sourceRef="enhanceCVsWithRating" targetRef="sendRatedCVs" />
