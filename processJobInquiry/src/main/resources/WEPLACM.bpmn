@@ -244,7 +244,7 @@
       <bpmn:outgoing>SequenceFlow_0ze7kpb</bpmn:outgoing>
       <bpmn:outgoing>SequenceFlow_1hpkv9l</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:sendTask id="sendRefusalAfterBackgroundCheck" name="Send Refusal to Candidate" camunda:class="org.wwu.bpm.wfm.weplacm.processJobInquiry.sendMessages.SendRefusalBackgroundCheck">
+    <bpmn:sendTask id="sendRefusalAfterBackgroundCheck" name="Send Refusal to Candidate" camunda:class="org.wwu.bpm.wfm.weplacm.processJobInquiry.sendMessages.SendRefusal">
       <bpmn:incoming>SequenceFlow_16vok2p</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1s1mwrm</bpmn:outgoing>
     </bpmn:sendTask>
@@ -262,7 +262,7 @@
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${sufficient}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_1hpkv9l" name="no" sourceRef="openingXORCVsAvailableAfterBackgroundCheck" targetRef="NotifyCustomerNoCV3">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${sufficient}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!sufficient}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_09beh8f" sourceRef="NotifyCustomerNoCV3" targetRef="EndEvent_0j0m4bm" />
     <bpmn:sequenceFlow id="SequenceFlow_1yh1v0j" sourceRef="enhanceCVsWithRating" targetRef="sendRatedCVs" />
