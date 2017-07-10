@@ -14,11 +14,44 @@
 		
 		<!-- Latest compiled JavaScript -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	
+		
+		<script cam-script type="text/form-script">
+				camForm.on('form-loaded', function() {
+  					// fetch the variable named 'customerData'
+  					camForm.variableManager.fetchVariable('jobInquiry');
+				});
+
+				camForm.on('variables-fetched', function() {
+  					// after the variables are fetched, bind the value of customerData to a angular
+  					// scope value such that the form can work on it
+  					$scope.jobInquiry = camForm.variableManager.variable('jobInquiry').value;
+			});
+		</script>
+
 	</head>
 	<body>
+	<!-- relevant fields: 
+		jobInquiry.processId , jobInquiry.title 
+		jobInquiry.requiredGraduation 
+		jobInquiry.location 
+		jobInquiry.deadline
+		Achtung Array:
+		jobInquiry.candidateProfile 
+		jobInquiry.taskList -->
 		<div class="container">
 			<h2>Please check the information sufficiency.</h2>
+			
+			<h3>Data of current Job Inquiry</h3>
+			  <div class="control-group">
+			    <label class="control-label" for="processId">Process ID</label>
+			    <div class="controls">
+			      <input id="processId"
+			             class="form-control"
+			             type="text"
+			             required 
+			             ng-model="jobInquiry.processId">
+			    </div>
+			
 			<p>Is the provided information sufficient for a job opening?</p>
 			<form role="form">
 				<label class="checkbox-inline">

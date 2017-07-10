@@ -1,5 +1,6 @@
 package org.wwu.bpm.wfm.weplacm.processJobInquiry.servlets;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
@@ -14,6 +15,7 @@ import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.ProcessEngines;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
+import org.wwu.bpm.wfm.weplacm.processJobInquiry.entity.JobInquiry;
 
 import com.google.gson.Gson;
 
@@ -63,10 +65,32 @@ public class StartProcessByJobInquiry extends HttpServlet {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
 		//Content type validation
+		request.setCharacterEncoding("UTF-8");
 		String contentType = request.getContentType();
-		
+		response.setContentType("application/json");
 		if (!"application/json".equals(contentType)) {
-			
+			response.getWriter().append("{\"error\":\"invalidRequest\",\"status\":\"wrong content type\"}");
+		}
+		BufferedReader reader = request.getReader();
+		JobInquiry job;	
+		try {
+			job = new Gson().fromJson(reader, JobInquiry.class);
+		}
+		catch (Exception e) {
+			response.getWriter().append("{\"error\":\"invalidRequest\", \"status\":\"failed to creade GSON\"}");
+			return; //break
+		}
+		if (null == job) {
+			response.getWriter().append("{\"error\":\"invalidRequest\", \"status\":\"GSON not correctly created\"}");
+			return; //break
+		}
+		else {
+			ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
+			RuntimeService runtimeService = processEngine.getRuntimeService();
+			Map<String,Object> map = new HashMap<String,Object>();
+			map.put("jobInquiry", job);
+			runtimeService.startProcessInstanceByMessage("JobInformation", map);
+			response.getWriter().append(new Gson().toJson(job, JobInquiry.class));
 		}
 	}
 
