@@ -6,8 +6,26 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Vector;
 
+/**
+ * This class sets up a connection to a MySQL-DB.
+ * Scheme has to be called "weplacm", username and
+ * password need to be "root", "root".
+ * 
+ * Use MySQLConnector.getConnection() to get an 
+ * instance.
+ * 
+ * When calling getConnection, the tables candidates,
+ * skills and candidates_skill_matching will be 
+ * generated automatically, as well as a set of 5
+ * candidates, 3 skills and 3 links between candidates
+ * and skills. If this should not happen, change the
+ * variable autogenerate to false.
+ * @author oliver
+ *
+ */
 public class MySQLConnector {
 	private static String dbHost="localhost";
 	private static String dbPort="3306";
@@ -18,7 +36,7 @@ public class MySQLConnector {
 
 	private static Connection con;
 
-	public MySQLConnector(){
+	private MySQLConnector(){
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			con = DriverManager.getConnection("jdbc:mysql://"+dbHost+":"+ dbPort+"/"+dbName+"?"+"user="+dbUser+"&"+"password="+dbPass);
@@ -36,8 +54,10 @@ public class MySQLConnector {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		createMissingDBs();
-		createDefaultEntries();
+		if(autogenerate){
+			createMissingDBs();
+			createDefaultEntries();
+		}
 	}
 
 	public static Connection getConnection(){
@@ -103,8 +123,8 @@ public class MySQLConnector {
 	}
 
 	private static void createDefaultEntries(){
-		Vector<String> usernames = new Vector<String>();
-		Vector<String> skills = new Vector<String>();
+		ArrayList<String> usernames = new ArrayList<String>();
+		ArrayList<String> skills = new ArrayList<String>();
 		usernames.add("Hans");
 		usernames.add("Jürgen");
 		usernames.add("Peter");
@@ -173,7 +193,6 @@ public class MySQLConnector {
 			else
 				return true;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return true;
