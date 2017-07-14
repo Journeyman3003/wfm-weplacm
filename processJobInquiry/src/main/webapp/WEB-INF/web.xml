@@ -1,26 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="2.5" 
-    xmlns="http://java.sun.com/xml/ns/javaee" 
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
-  <servlet>
-    <description></description>
-    <display-name>StartProcessByJobInquiry</display-name>
-    <servlet-name>StartProcessByJobInquiry</servlet-name>
-    <servlet-class>org.wwu.bpm.wfm.weplacm.processJobInquiry.servlets.StartProcessByJobInquiry</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>StartProcessByJobInquiry</servlet-name>
-    <url-pattern>/job-inquiry</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>ReceivePayment</display-name>
-    <servlet-name>ReceivePayment</servlet-name>
-    <servlet-class>org.wwu.bpm.wfm.weplacm.processJobInquiry.servlets.ReceivePayment</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ReceivePayment</servlet-name>
-    <url-pattern>/receive-payment</url-pattern>
-  </servlet-mapping>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	<servlet>
+		<description></description>
+		<display-name>StartProcessByJobInquiry</display-name>
+		<servlet-name>StartProcessByJobInquiry</servlet-name>
+		<servlet-class>org.wwu.bpm.wfm.weplacm.processJobInquiry.servlets.StartProcessByJobInquiry</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>StartProcessByJobInquiry</servlet-name>
+		<url-pattern>/job-inquiry</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<description></description>
+		<display-name>ReceivePayment</display-name>
+		<servlet-name>ReceivePayment</servlet-name>
+		<servlet-class>org.wwu.bpm.wfm.weplacm.processJobInquiry.servlets.ReceivePayment</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ReceivePayment</servlet-name>
+		<url-pattern>/receive-payment</url-pattern>
+	</servlet-mapping>
 </web-app>

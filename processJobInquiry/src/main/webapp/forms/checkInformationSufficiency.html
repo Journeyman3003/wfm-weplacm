@@ -1,35 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		
-		<!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-		
-		<!-- jQuery library -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-		
-		<!-- Latest compiled JavaScript -->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-		
-		<script cam-script type="text/form-script">
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<form role="form" class="form-horizontal">
+<script cam-script type="text/form-script">
 				camForm.on('form-loaded', function() {
   					// fetch the variable named 'customerData'
   					camForm.variableManager.fetchVariable('jobInquiry');
-				});
 
+				});
+				
 				camForm.on('variables-fetched', function() {
   					// after the variables are fetched, bind the value of customerData to a angular
   					// scope value such that the form can work on it
-  					$scope.jobInquiry = camForm.variableManager.variable('jobInquiry').value;
-			});
+  					$scope.jobInquiry = camForm.variableManager.variable('jobInquiry');
+					$scope.bla = "blablabla";
+					console.log($scope.jobInquiry);	
+					console.log($scope.bla);
+				
+});
 		</script>
-
-	</head>
-	<body>
 	<!-- relevant fields: 
 		jobInquiry.processId , jobInquiry.title 
 		jobInquiry.requiredGraduation 
@@ -38,28 +46,32 @@
 		Achtung Array:
 		jobInquiry.candidateProfile 
 		jobInquiry.taskList -->
-		<div class="container">
-			<h2>Please check the information sufficiency.</h2>
-			
-			<h3>Data of current Job Inquiry</h3>
-			  <div class="control-group">
-			    <label class="control-label" for="processId">Process ID</label>
-			    <div class="controls">
-			      <input id="processId"
-			             class="form-control"
-			             type="text"
-			             required 
-			             ng-model="jobInquiry.processId">
-			    </div>
-			
+	<div class="container">
+		<h2>Please check the information sufficiency.</h2>
+		test: {{jobInquiry.processId}}
+		test2: {{bla}}
+		<h3>Data of current Job Inquiry</h3>
+		<div class="control-group">
+			<label class="control-label" for="processId">Process ID</label>
+			<div class="controls">
+				<input id="processId" class="form-control" type="text" required
+					ng-model="jobInquiry.processId" value="{{jobInquiry.processId}}">
+			</div>
+			<input cam-variable-name="jobInquiry.processId"
+	             type="text"
+	             name="creditor"
+	             readonly="true"
+	             class="form-control" />
 			<p>Is the provided information sufficient for a job opening?</p>
 			<form role="form">
-				<label class="checkbox-inline">
-					<input cam-variable-name="sufficient" cam-variable-type="Boolean" type="checkbox" name="sufficient"> Yes!
+				<label class="checkbox-inline"> <input
+					cam-variable-name="sufficient" cam-variable-type="Boolean"
+					type="checkbox" name="sufficient"> Yes!
 				</label>
 			</form>
 		</div>
-	</body>
+		</form>
+</body>
 </html>
 
 
