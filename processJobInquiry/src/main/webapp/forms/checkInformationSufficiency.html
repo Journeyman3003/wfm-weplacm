@@ -31,7 +31,7 @@
 				camForm.on('variables-fetched', function() {
   					// after the variables are fetched, bind the value of customerData to a angular
   					// scope value such that the form can work on it
-  					$scope.jobInquiry = camForm.variableManager.variable('jobInquiry');
+  					$scope.jobInquiry = camForm.variableManager.variableValue('jobInquiry');
 					$scope.bla = "blablabla";
 					console.log($scope.jobInquiry);	
 					console.log($scope.bla);

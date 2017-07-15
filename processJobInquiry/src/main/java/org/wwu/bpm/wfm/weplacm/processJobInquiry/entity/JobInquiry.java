@@ -2,7 +2,7 @@ package org.wwu.bpm.wfm.weplacm.processJobInquiry.entity;
 
 import java.util.Date;
 
-public class JobInquiry {
+public class JobInquiry  {
 	private String processId;
 	private String title;
 	private String requiredGraduation;

@@ -15,6 +15,8 @@ import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.ProcessEngines;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
+import org.camunda.bpm.engine.variable.Variables;
+import org.camunda.bpm.engine.variable.value.ObjectValue;
 import org.wwu.bpm.wfm.weplacm.processJobInquiry.entity.JobInquiry;
 
 import com.google.gson.Gson;
@@ -73,23 +75,29 @@ public class StartProcessByJobInquiry extends HttpServlet {
 		}
 		BufferedReader reader = request.getReader();
 		JobInquiry job;	
+		
+		
 		try {
 			job = new Gson().fromJson(reader, JobInquiry.class);
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			response.getWriter().append("{\"error\":\"invalidRequest\", \"status\":\"failed to creade GSON\"}");
 			return; //break
 		}
+		
+		
 		if (null == job) {
 			response.getWriter().append("{\"error\":\"invalidRequest\", \"status\":\"GSON not correctly created\"}");
 			return; //break
-		}
-		else {
+		} else {
 			ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
 			RuntimeService runtimeService = processEngine.getRuntimeService();
-			Map<String,Object> map = new HashMap<String,Object>();
-			map.put("jobInquiry", job);
-			runtimeService.startProcessInstanceByMessage("JobInformation", map);
+			//Map<String,Object> map = new HashMap<String,Object>();
+			//map.put("jobInquiry", job);
+			ProcessInstance processInstance = runtimeService.startProcessInstanceByMessage("JobInformation"/*, map*/);
+			
+			ObjectValue typedJobInquiry = Variables.objectValue(job).serializationDataFormat("application/json").create();
+
+			runtimeService.setVariable(processInstance.getId(), "jobInquiry", typedJobInquiry);
 			response.getWriter().append(new Gson().toJson(job, JobInquiry.class));
 		}
 	}
