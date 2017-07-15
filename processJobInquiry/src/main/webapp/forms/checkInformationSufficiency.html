@@ -48,27 +48,38 @@
 		jobInquiry.taskList -->
 	<div class="container">
 		<h2>Please check the information sufficiency.</h2>
-		test: {{jobInquiry.processId}}
-		test2: {{bla}}
 		<h3>Data of current Job Inquiry</h3>
+		
 		<div class="control-group">
+			<h4>Title of job inquiry:</h4>
+			{{jobInquiry.title}}
+			<br /><br />
+			<h4>Required graduation:</h4>
+			{{jobInquiry.requiredGraduation}}
+			<br /><br />
+			<h4>Location of job:</h4>
+			{{jobInquiry.location}}
+			<br /><br />
+			<h4>Application deadline:</h4>
+			{{jobInquiry.deadline}}
+			<br /><br />
+			<h4>Candidate Profile:</h4>
+			<ul ng-repeat="prof in jobInquiry.candidateProfile">
+				<li>{{prof}}</li>
+			</ul>
+			<br /><br />
+			<h4>Tasks:</h4>
+			<ul ng-repeat="task in jobInquiry.taskList">
+				<li>{{task}}</li>
+			</ul>
+			<br /><br />
 			<label class="control-label" for="processId">Process ID</label>
-			<div class="controls">
-				<input id="processId" class="form-control" type="text" required
-					ng-model="jobInquiry.processId" value="{{jobInquiry.processId}}">
-			</div>
-			<input cam-variable-name="jobInquiry.processId"
-	             type="text"
-	             name="creditor"
-	             readonly="true"
-	             class="form-control" />
+			<input  type="text" name="creditor" readonly="true" class="form-control" />
 			<p>Is the provided information sufficient for a job opening?</p>
-			<form role="form">
-				<label class="checkbox-inline"> <input
-					cam-variable-name="sufficient" cam-variable-type="Boolean"
-					type="checkbox" name="sufficient"> Yes!
-				</label>
-			</form>
+			<label class="checkbox-inline"> <input
+				cam-variable-name="sufficient" cam-variable-type="Boolean"
+				type="checkbox" name="sufficient"/> Yes!
+			</label>
 		</div>
 		</form>
 </body>

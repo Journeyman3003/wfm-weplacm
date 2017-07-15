@@ -20,8 +20,45 @@
 
 </head>
 <body>
+<form role="form" class="form-horizontal">
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script cam-script type="text/form-script">
+				camForm.on('form-loaded', function() {
+  					// fetch the variable named 'customerData'
+  					camForm.variableManager.fetchVariable('CVCollection');
+
+				});
+				
+				camForm.on('variables-fetched', function() {
+  					// after the variables are fetched, bind the value of customerData to a angular
+  					// scope value such that the form can work on it
+  					$scope.CVCollection = camForm.variableManager.variableValue('CVCollection');
+				
+});
+		</script>
 	<div class="container">
-		<h2>Please sort the provided CVs.</h2>
+		<h2>Please sort out bogus CVs.</h2>
+		
+  <div class="panel-group" id="accordion" ng-repeat="cv in CVCollection">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">{{cv.applicantName}}</a>
+        </h4>
+      </div>
+      <div id="collapse1" class="panel-collapse collapse in">
+        <div class="panel-body">{{cv.applicantName}}.</div>
+      </div>
+    </div>
+  </div>
+		
+		
+		
+		
+		
+		
 		<p>CVs sorted?</p>
 		<form role="form">
 			<label class="checkbox-inline"> <input
@@ -30,5 +67,6 @@
 			</label>
 		</form>
 	</div>
+	</form>
 </body>
 </html>
