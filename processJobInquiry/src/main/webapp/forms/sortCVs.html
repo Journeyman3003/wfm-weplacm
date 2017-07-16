@@ -1,23 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		
-		<!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet"
-			href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-		
-		<!-- jQuery library -->
-		<script
-			src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-		
-		<!-- Latest compiled JavaScript -->
-		<script
-			src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-		
+		<!-- styles -->
+		<link href="/processJobInquiry/assets/css/style.css" rel="stylesheet" />
 	</head>
 	<body>
 		<form role="form" class="form-horizontal">
@@ -35,64 +24,6 @@
 
 			</script>
 			
-			<script>
-				
-				$(document).ready(function() {
-				
-					$('#cV-panels .panel-heading').click(function() {
-						
-						var nextPanelBody = $(this).next('.panel-body');
-					
-						nextPanelBody.slideToggle('fast');
-						$('#cV-panels .panel-body').not(nextPanelBody).slideUp('fast');
-						
-					});
-					
-					$('#current-inquiry .panel-heading').click(function() {
-						
-						var nextPanelBody = $(this).next('.panel-body');
-	
-						nextPanelBody.slideToggle('fast');
-						
-					});
-				
-				});
-			
-			</script>
-			
-			<style>
-				
-				.panel {
-					position: relative;
-				}
-				
-				.panel-heading {
-					position: relative;
-					cursor: pointer;
-					-webkit-user-select: none; /* Chrome, Opera, Safari */
-    					-moz-user-select: none; /* Firefox 2+ */
-    					-ms-user-select: none; /* IE 10+ */
-    					user-select: none; /* Standard syntax */
-				}
-				
-				.panel-body {
-					display: none;
-				}
-				
-				.cV-action {
-					position: absolute;
-					top: 0px;
-					right: 0px;
-					width: 100px;
-					height: 37px;
-					line-height: 37px;
-					text-align: right;
-					padding: 0px 10px 0px 10px;
-					z-index: 99;
-				}
-				
-			</style>
-			
 			<div class="control-group">
 				<label class="control-label">Process ID: {{jobInquiry.processId}}</label>
 			</div>
@@ -103,15 +34,17 @@
 			
 			<p>List of available CVs:</p>
 			
-			<div id="cV-panels" class="panel-group" ng-repeat="cv in CVCollection">
-				<div class="panel panel-default">
-					<div class="cV-action">
-						<label>Accept <input type="checkbox" name=""></label>
+			<div id="cV-panels">
+				<div class="panel-group" ng-repeat="cv in CVCollection">
+					<div class="panel panel-default">
+						<div class="cV-action">
+							<label>Accept <input type="checkbox" name=""></label>
+						</div>
+				    		<div class="panel-heading">
+							<h4 class="panel-title">{{cv.applicantName}}</h4>
+				      	</div>
+				      	<div class="panel-body">{{cv.applicantName}}.</div>
 					</div>
-			    		<div class="panel-heading">
-						<h4 class="panel-title">{{cv.applicantName}}</h4>
-			      	</div>
-			      	<div class="panel-body">{{cv.applicantName}}.</div>
 				</div>
 			</div>
 
@@ -193,4 +126,7 @@
 			
 		</form>
 	</body>
+	
+	<script src="/processJobInquiry/assets/vendor/jquery/jquery-3.2.1.min.js"></script>
+	<script src="/processJobInquiry/assets/js/main.js"></script>
 </html>

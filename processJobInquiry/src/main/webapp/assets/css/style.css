@@ -1,0 +1,32 @@
+.panel {
+	position: relative;
+}
+
+.panel-heading {
+	position: relative;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.panel-body {
+	display: none;
+}
+
+.cV-action {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	width: 150px;
+	height: 37px;
+	line-height: 37px;
+	text-align: right;
+	padding: 0px 10px 0px 10px;
+	z-index: 99;
+}
+
+.cV-action label {
+	font-weight: normal;
+}

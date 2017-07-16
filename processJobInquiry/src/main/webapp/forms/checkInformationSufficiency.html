@@ -1,23 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		
-		<!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet"
-			href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-		
-		<!-- jQuery library -->
-		<script
-			src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-		
-		<!-- Latest compiled JavaScript -->
-		<script
-			src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-		
+		<!-- styles -->
+		<link href="/processJobInquiry/assets/css/style.css" rel="stylesheet" />
 	</head>
 	<body>
 		<form role="form" class="form-horizontal">
@@ -32,38 +21,6 @@
 				});
 
 			</script>
-			
-			<script>
-				
-				$(document).ready(function() {
-					
-					$('#current-inquiry .panel-heading').click(function() {
-						
-						var nextPanelBody = $(this).next('.panel-body');
-	
-						nextPanelBody.slideToggle('fast');
-						
-					});
-				
-				});
-			
-			</script>
-			
-			<style>
-				
-				.panel-heading {
-					cursor: pointer;
-					-webkit-user-select: none; /* Chrome, Opera, Safari */
-    					-moz-user-select: none; /* Firefox 2+ */
-    					-ms-user-select: none; /* IE 10+ */
-    					user-select: none; /* Standard syntax */
-				}
-				
-				.panel-body {
-					display: none;
-				}
-				
-			</style>
 			
 			<div class="control-group">
 				<label class="control-label">Process ID: {{jobInquiry.processId}}</label>
@@ -149,4 +106,7 @@
 			</div>
 		</form>
 	</body>
+	
+	<script src="/processJobInquiry/assets/vendor/jquery/jquery-3.2.1.min.js"></script>
+	<script src="/processJobInquiry/assets/js/main.js"></script>
 </html>
