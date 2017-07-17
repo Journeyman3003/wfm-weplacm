@@ -1,30 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		
-		<!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-		
-		<!-- jQuery library -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-		
-		<!-- Latest compiled JavaScript -->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	
+		<!-- styles -->
+		<link href="/processJobInquiry/assets/css/style.css" rel="stylesheet" />
 	</head>
 	<body>
-		<div class="container">
-			<h2>Please background-check the provided CVs.</h2>
-			<p>CVs background-checked?</p>
-			<form role="form">
-				<label class="checkbox-inline">
-					<input cam-variable-name="backgroundChecked" cam-variable-type="Boolean" type="checkbox" name="backgroundChecked"> Yes!
-				</label>
-			</form>
-		</div>
+		<form role="form" class="form-horizontal">
+			<script cam-script type="text/form-script">
+
+				camForm.on('form-loaded', function() {
+  					camForm.variableManager.fetchVariable('jobInquiry');
+  					camForm.variableManager.fetchVariable('CVCollection');
+				});
+				
+				camForm.on('variables-fetched', function() {
+  					$scope.jobInquiry = camForm.variableManager.variableValue('jobInquiry');
+  					$scope.CVCollection = camForm.variableManager.variableValue('CVCollection');
+				});
+
+			</script>
+			
+			<div class="control-group">
+				<label class="control-label">Process ID: {{jobInquiry.processId}}</label>
+			</div>
+			
+			<h3>Please background-check the provided CVs.</h3>
+
+			<hr />
+			
+			<p>List of available CVs:</p>
+			
+			<div id="cV-panels">
+				<div class="panel-group" ng-repeat="cv in CVCollection">
+					<div class="panel panel-default">
+						<div class="cV-action">
+							<label>Accept <input type="checkbox" name=""></label>
+						</div>
+				    		<div class="panel-heading">
+							<h4 class="panel-title">{{cv.applicantName}}</h4>
+				      	</div>
+				      	<div class="panel-body">{{cv.applicantName}}.</div>
+					</div>
+				</div>
+			</div>
+
+			<hr />
+			
+			<div id="current-inquiry" class="panel-group">
+				<div class="panel panel-default">
+			    		<div class="panel-heading">
+						<h4 class="panel-title">Corresponding job inquiry</h4>
+			      	</div>
+			      	<div class="panel-body">
+						<div class="control-group">
+							<label class="control-label" >Title of job inquiry:</label>
+							<div class="controls">
+								<input value="{{jobInquiry.title}}" type="text" readonly="true" class="form-control" />
+							</div>
+						</div>
+						
+						<br />
+						
+						<div class="control-group">
+							<label class="control-label" >Required graduation:</label>
+							<div class="controls">
+								<input value="{{jobInquiry.requiredGraduation}}" type="text" readonly="true" class="form-control" />
+							</div>
+						</div>
+						
+						<br />
+						
+						<div class="control-group">
+							<label class="control-label" >Location of job:</label>
+							<div class="controls">
+								<input value="{{jobInquiry.location}}" type="text" readonly="true" class="form-control" />
+							</div>
+						</div>
+						
+						<br />
+						
+						<div class="control-group">
+							<label class="control-label" >Application deadline:</label>
+							<div class="controls">
+								<input value="{{jobInquiry.deadline}}" type="text" readonly="true" class="form-control" />
+							</div>
+						</div>
+						
+						<br />
+			
+						<div class="control-group">
+							<label class="control-label" >Candidate Profile:</label>
+							<div class="controls">
+								<ul class="list-group">
+									<li ng-repeat="prof in jobInquiry.candidateProfile" class="list-group-item">{{prof}}</li>
+								</ul>
+							</div>
+						</div>
+							
+						<div class="control-group">
+							<label class="control-label">Tasks:</label>
+							<div class="controls">
+								<ul class="list-group">
+									<li ng-repeat="task in jobInquiry.taskList" class="list-group-item">{{task}}</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<hr />
+						
+			<div class="control-group">
+				<p>CVs background-checked?</p>
+				
+				<select cam-variable-name="backgroundChecked" cam-variable-type="Boolean">
+					<option value="true">Yes</option>
+					<option value="false">No</option>
+				</select>
+			</div>
+			
+		</form>
 	</body>
+	
+	<script src="/processJobInquiry/assets/vendor/jquery/jquery-3.2.1.min.js"></script>
+	<script src="/processJobInquiry/assets/js/main.js"></script>
 </html>

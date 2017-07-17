@@ -2,7 +2,8 @@ package org.wwu.bpm.wfm.weplacm.processJobInquiry.entity;
 
 import java.util.Date;
 
-public class JobInquiry {
+public class JobInquiry  {
+	private String processId;
 	private String title;
 	private String requiredGraduation;
 	private String location;
@@ -13,12 +14,22 @@ public class JobInquiry {
 	
 	//required for GSON?
 	public JobInquiry() {
+		
+		processId = "";
 		title = "";
 		requiredGraduation = "";
 		location = "";
 		deadline = null;
 		candidateProfile = null;
 		taskList = null;
+	}
+	
+	public String getProcessId() {
+		return processId;
+	}
+
+	public void setProcessId(String processId) {
+		this.processId = processId;
 	}
 	
 	
