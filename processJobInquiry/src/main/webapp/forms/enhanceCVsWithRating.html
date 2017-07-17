@@ -47,9 +47,99 @@
 							</select>
 						</div>
 				    		<div class="panel-heading">
-							<h4 class="panel-title">{{cv.applicantName}}</h4>
+							<h4 class="panel-title">{{cv.name}}</h4>
 				      	</div>
-				      	<div class="panel-body">{{cv.applicantName}}.</div>
+				      	<div class="panel-body">
+
+							<!-- Applicant CV Start -->
+	
+							<div class="control-group">
+								<label class="control-label">Name</label>
+								<div class="controls">
+									<input value="{{cv.name}}" type="text" class="form-control" readonly="true" class="form-control" />
+								</div>
+							</div>
+							<br />
+							<div class="control-group">
+								<label class="control-label">Address</label>
+								<div class="controls">
+									<input value="{{cv.address}}" type="text" class="form-control" readonly="true" class="form-control" />
+								</div>
+							</div>
+							<br />
+							<div class="control-group">
+								<label class="control-label">E-Mail</label>
+								<div class="controls">
+									<input value="{{cv.email}}" type="text" class="form-control" readonly="true" class="form-control" />
+								</div>
+							</div>
+							<br />
+							<div class="control-group">
+								<label class="control-label">Tel. Number</label>
+								<div class="controls">
+									<input value="{{cv.tel}}" type="text" class="form-control" readonly="true" class="form-control" />
+								</div>
+							</div>
+							<br />
+							<div class="control-group">
+								<label class="control-label">Birthday</label>
+								<div class="controls">
+									<input value="{{cv.birthday}}" type="text" readonly="true" class="form-control" />
+								</div>
+							</div>
+							<br />
+							<div class="control-group">
+								<label class="control-label">Study</label>
+								<div class="controls">
+									<input value="{{cv.study}}" type="text" class="form-control" readonly="true" class="form-control" />
+								</div>
+							</div>
+							<br />
+							<div class="control-group">
+								<label class="control-label">Highest Degree</label>
+								<div class="controls">
+									<input value="{{cv.degree}}" type="text" class="form-control" readonly="true" class="form-control" />
+								</div>
+							</div>
+							<br />
+							<div class="control-group">
+								<label class="control-label">Grade</label>
+								<div class="controls">
+									<input value="{{cv.grade}}" type="text" readonly="true" class="form-control" />
+								</div>
+							</div>
+							<br />
+							<div class="control-group">
+								<label class="control-label">Sector(s)</label>
+								<div class="controls">
+									<textarea class="form-control" readonly="true" rows="5">{{cv.sectors}}</textarea>
+								</div>
+							</div>
+							<br />
+							<div class="control-group">
+								<label class="control-label">Motivation</label>
+								<div class="controls">
+									<textarea class="form-control" readonly="true" rows="5">{{cv.motivation}}</textarea>
+								</div>
+							</div>
+							<br />
+							<div class="control-group">
+								<label class="control-label">Skills</label>
+								<div class="controls">
+									<textarea class="form-control" readonly="true" rows="5">{{cv.skills}}</textarea>
+								</div>
+							</div>
+							<br />
+							<div class="control-group">
+								<label class="control-label">Practical Experience</label>
+								<div class="controls">
+									<textarea class="form-control" readonly="true" rows="5">{{cv.experience}}</textarea>
+								</div>
+							</div>
+	
+							<!-- Applicant CV End -->
+
+						</div>
 					</div>
 				</div>
 			</div>

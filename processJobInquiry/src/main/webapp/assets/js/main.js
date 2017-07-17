@@ -6,8 +6,8 @@ $(document).ready(function() {
 		
 		$('#cV-panels .panel-heading').removeClass('act');
 		$(this).addClass('act');
-		nextPanelBody.slideToggle('fast');
-		$('#cV-panels .panel-body').not(nextPanelBody).slideUp('fast');
+		nextPanelBody.slideToggle(300);
+		$('#cV-panels .panel-body').not(nextPanelBody).slideUp(300);
 		
 	});
 	
@@ -16,7 +16,7 @@ $(document).ready(function() {
 		var nextPanelBody = $(this).next('.panel-body');
 
 		$(this).toggleClass('act');
-		nextPanelBody.slideToggle('fast');
+		nextPanelBody.slideToggle(300);
 		
 	});
 
