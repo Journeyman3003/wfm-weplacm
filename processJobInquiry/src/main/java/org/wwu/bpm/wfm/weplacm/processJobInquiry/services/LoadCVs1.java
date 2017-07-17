@@ -23,7 +23,7 @@ public class LoadCVs1 implements JavaDelegate{
 		
 		CV cv1 = new CV();
 		CV cv2 = new CV();
-		cv2.setApplicantName("Hans");
+		cv2.setName("Hans");
 		
 		ObjectValue typedJobInquiry1 = Variables.objectValue(cv1).serializationDataFormat("application/json").create();
 		ObjectValue typedJobInquiry2 = Variables.objectValue(cv2).serializationDataFormat("application/json").create();
