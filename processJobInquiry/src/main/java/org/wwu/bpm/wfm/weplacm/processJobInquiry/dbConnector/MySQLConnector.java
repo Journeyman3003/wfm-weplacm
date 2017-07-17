@@ -9,6 +9,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import org.wwu.bpm.wfm.weplacm.processJobInquiry.services.AddCandidateToDatabase;
+
+import com.mysql.jdbc.DatabaseMetaData;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
+
 /**
  * This class sets up a connection to a MySQL-DB.
  * Scheme has to be called "weplacm", username and
@@ -32,13 +37,16 @@ public class MySQLConnector {
 	private static String dbName="weplacm";
 	private static String dbUser="root";
 	private static String dbPass="root";
-	private static boolean autogenerate = true;
+	private static boolean autogenerate = false;
 
 	private static Connection con;
 
 	private MySQLConnector(){
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			Connection tempCon = DriverManager.getConnection("jdbc:mysql://"+dbHost+":"+dbPort+"/?user=root&password=root");
+			createMissingDatabase(tempCon);
+			tempCon.close();
 			con = DriverManager.getConnection("jdbc:mysql://"+dbHost+":"+ dbPort+"/"+dbName+"?"+"user="+dbUser+"&"+"password="+dbPass);
 
 		} catch (InstantiationException e) {
@@ -54,19 +62,84 @@ public class MySQLConnector {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		createMissingTables();
 		if(autogenerate){
-			createMissingDBs();
 			createDefaultEntries();
 		}
 	}
 
+	public static void addCandidate(){
+		
+	}
+	
 	public static Connection getConnection(){
 		if(con==null)
 			new MySQLConnector();
 		return con;
 	}
+	
+	private static void addCandidateToDatabase(Candidate candidate){
+		try {
+			PreparedStatement stmt = getConnection().prepareStatement(
+					"INSERT INTO `weplacm`.`candidates` (`name`, `email`) VALUES (?,?);"
+					);
+			stmt.setString(1, candidate.getName());
+			stmt.setString(2, candidate.getEmail());
+			stmt.execute();
+			
+			ResultSet candidateidquery = getConnection().prepareStatement("SELECT `candidates`.`id_candidate` FROM `weplacm`.`candidates` WHERE `candidates`.`email` = '"+candidate.getEmail()+"';").executeQuery();
+			int candidateid=-1;
+			while(candidateidquery.next()){
+				candidateid=candidateidquery.getInt(1);
+				candidate.setCandidateID(candidateid);
+			}
+			
+			candidate.getSkills().forEach(skill ->
+			{
+				try {
+					getConnection().prepareStatement(
+							"INSERT INTO weplacm.skills (`name`) VALUES ('"+skill.getName()+"');"
+							).execute();
+					ResultSet rs = getConnection().prepareStatement("SELECT skills.id_skill FROM weplacm.skills WHERE skills.`name` = '"+skill.getName()+"';").executeQuery();
+					int skillid = -1;
+					while(rs.next()){
+						skillid = rs.getInt(1);
+						skill.setDBID(skillid);
+					}
+					getConnection().prepareStatement(
+							"INSERT INTO weplacm.candidates_skill_matching (`candidate_id`, `skill_id`) VALUES ("+candidate.getCandidateID()+","+skill.getDBID()+");"
+							).execute();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			});
+			
+			
 
-	private static void createMissingDBs(){
+		} catch (MySQLIntegrityConstraintViolationException mysql){
+			System.out.println("Email already exists");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+	}
+	
+	private static void createMissingDatabase(Connection con){
+		if(!checkIfDatabaseExists(con)){
+			try {
+				PreparedStatement stmt = con.prepareStatement(
+						"CREATE DATABASE weplacm"
+						);
+				stmt.execute();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	private static void createMissingTables(){
 		Vector<String> dbNames = new Vector<String>();
 		try {
 			ResultSet rs = getConnection().getMetaData().getTables(getConnection().getCatalog(), null, null, null);
@@ -181,7 +254,22 @@ public class MySQLConnector {
 			}
 		}
 	}
-
+	
+	private static boolean checkIfDatabaseExists(Connection con){
+		try {
+			ResultSet meta = con.getMetaData().getCatalogs();
+			while(meta.next()){
+				if(meta.getString(1).equals("weplacm")){
+					return true;
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
 	private static boolean checkIfTableIsEmpty(String tablename){
 		try {
 			PreparedStatement stmt = getConnection().prepareStatement(
