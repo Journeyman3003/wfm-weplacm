@@ -66,7 +66,7 @@
 						<div class="control-group">
 							<label class="control-label" >Application deadline:</label>
 							<div class="controls">
-								<input value="{{jobInquiry.deadline}}" type="text" readonly="true" class="form-control" />
+								<input value="{{jobInquiry.deadline | date: 'MM/dd/yyyy @ h:mma'}}" type="text" readonly="true" class="form-control" />
 							</div>
 						</div>
 						
