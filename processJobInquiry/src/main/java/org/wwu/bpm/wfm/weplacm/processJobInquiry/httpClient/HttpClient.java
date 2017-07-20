@@ -27,7 +27,7 @@ public class HttpClient {
 	public static void postJobInquiryResponse(String url, Boolean accepted, String processInstanceId) throws IOException {
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 		try {
-		    HttpPost httppost = new HttpPost("http://httpbin.org/post");
+		    HttpPost httppost = new HttpPost(url);
 		    
 		    
 		    
@@ -42,6 +42,8 @@ public class HttpClient {
 		
 		    System.out.println("Executing request: " + httppost.getRequestLine());
 		    CloseableHttpResponse response = httpclient.execute(httppost);
+		} catch (Exception e) {
+			System.out.println("you fucked up! most likely the host " + url + " could not be reached");
 		} finally {
 		    httpclient.close();
 		}

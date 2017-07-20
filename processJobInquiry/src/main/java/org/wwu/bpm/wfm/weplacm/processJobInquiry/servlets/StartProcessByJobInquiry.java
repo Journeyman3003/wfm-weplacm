@@ -20,6 +20,7 @@ import org.camunda.bpm.engine.variable.value.ObjectValue;
 import org.wwu.bpm.wfm.weplacm.processJobInquiry.entity.JobInquiry;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 /**
  * Servlet implementation class StartProcessByJobInquiry
@@ -76,9 +77,11 @@ public class StartProcessByJobInquiry extends HttpServlet {
 		BufferedReader reader = request.getReader();
 		JobInquiry job;	
 		
-		
+		Gson gson = new GsonBuilder()
+			    .setDateFormat("yyyy-MM-dd")
+			    .create();
 		try {
-			job = new Gson().fromJson(reader, JobInquiry.class);
+			job = gson.fromJson(reader, JobInquiry.class);
 		} catch (Exception e) {
 			response.getWriter().append("{\"error\":\"invalidRequest\", \"status\":\"failed to creade GSON\"}");
 			return; //break
