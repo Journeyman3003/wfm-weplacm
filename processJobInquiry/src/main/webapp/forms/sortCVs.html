@@ -22,6 +22,10 @@
   					$scope.CVCollection = camForm.variableManager.variableValue('CVCollection');
 				});
 
+				camForm.on('submit', function(evt) {
+					camForm.variableManager.variableValue('CVCollection', $scope.CVCollection);
+				});
+
 			</script>
 			
 			<div class="control-group">
@@ -38,7 +42,7 @@
 				<div class="panel-group" ng-repeat="cv in CVCollection">
 					<div class="panel panel-default">
 						<div class="cV-action">
-							<label>Accept <input type="checkbox" name=""></label>
+							<label>Accept <input type="checkbox" ng-model="cv.isAccepted" name=""></label>
 						</div>
 				    		<div class="panel-heading">
 							<h4 class="panel-title">{{cv.name}}</h4>

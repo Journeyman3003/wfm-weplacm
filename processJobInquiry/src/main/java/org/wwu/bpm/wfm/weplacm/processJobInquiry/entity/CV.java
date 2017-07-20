@@ -15,9 +15,11 @@ public class CV {
 	private String motivation;
 	private String skills;
 	private String experience;
-	
+	private Boolean isAccepted;
+	private String rating;
+
 	public CV() {
-		this.name = "Peter Pan";
+		this.isAccepted = false;
 	}
 
 	public String getName() {
@@ -114,5 +116,21 @@ public class CV {
 
 	public void setExperience(String experience) {
 		this.experience = experience;
+	}
+	
+	public Boolean getIsAccepted() {
+		return isAccepted;
+	}
+
+	public void setIsAccepted(Boolean isAccepted) {
+		this.isAccepted = isAccepted;
+	}
+
+	public String getRating() {
+		return rating;
+	}
+
+	public void setRating(String rating) {
+		this.rating = rating;
 	}
 }
