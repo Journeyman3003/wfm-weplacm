@@ -10,9 +10,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Vector;
 
-import org.camunda.bpm.dmn.engine.impl.hitpolicy.UniqueHitPolicyHandler;
-import org.wwu.bpm.wfm.weplacm.processJobInquiry.services.AddCandidateToDatabase;
-
 import com.mysql.jdbc.DatabaseMetaData;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
