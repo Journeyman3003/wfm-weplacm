@@ -22,7 +22,11 @@
   					$scope.CVCollection = camForm.variableManager.variableValue('CVCollection');
 				});
 
-				camForm.on('submit', function(evt) {
+				camForm.on('submit', function() {
+					// remove '$$hashKey' properties from cv objects
+					angular.forEach($scope.CVCollection, function(cv) {
+						delete cv.$$hashKey;
+					});
 					camForm.variableManager.variableValue('CVCollection', $scope.CVCollection);
 				});
 
