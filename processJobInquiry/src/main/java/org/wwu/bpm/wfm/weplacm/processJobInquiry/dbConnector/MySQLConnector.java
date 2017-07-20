@@ -39,7 +39,7 @@ public class MySQLConnector {
 	private static String dbName="weplacm";
 	private static String dbUser="root";
 	private static String dbPass="root";
-	private static boolean autogenerate = false;
+	private static boolean autogenerate = true;
 
 	private static Connection con;
 
@@ -77,14 +77,46 @@ public class MySQLConnector {
 		c.addSkill("test1");
 		c.addSkill("test2");
 		addCandidateToDatabase(c);
+		
+		c.setEmail("alias@test.de");
+		c.setName("Test2");
+		c.addSkill("test1");
+		c.addSkill("test2");
 		addCandidateToDatabase(c);
+		
+		ArrayList<Skill> skills = new ArrayList<>();
+		skills.add(new Skill("test1"));
+		skills.add(new Skill("test2"));
+		getCandidatesWithSkill(skills);
+		
 	}
 	
-	public static ArrayList<Candidate> getCandidatesWithSkill(ArrayList<Skill> skill){
+	/**
+	 * Returned candidates do not have skills attached to them!
+	 * @param skills Filters candidates that have all these skills
+	 * @return List of candidates with given skills.
+	 */
+	public static ArrayList<Candidate> getCandidatesWithSkill(ArrayList<Skill> skills){
 		ArrayList<Candidate> candidates = new ArrayList<>();
 		
-		
-		
+		StringBuilder sb = new StringBuilder();
+		skills.forEach(skill -> sb.append("'"+skill.getName()+"' "));
+		String temp = sb.toString().trim().replace(" ", ",");
+		temp = "SELECT a.id_candidate, a.candidatename, a.email "
+						+"FROM (SELECT * "
+						+"FROM candidates "
+						+"INNER JOIN candidates_skill_matching ON candidates.id_candidate = candidates_skill_matching.candidate_id "
+						+"INNER JOIN skills ON candidates_skill_matching.skill_id = skills.id_skill) AS a "
+						+"GROUP BY a.id_candidate "
+						+"HAVING COUNT(skillname in ("+temp+"))="+skills.size()+";";
+		try {
+			ResultSet rs = getConnection().createStatement().executeQuery(temp);
+			while(rs.next())
+				candidates.add(new Candidate(rs.getInt(1), rs.getString(2), rs.getString(3)));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return candidates;
 	}
 	
@@ -97,7 +129,7 @@ public class MySQLConnector {
 	private static void addCandidateToDatabase(Candidate candidate){
 		try {
 			PreparedStatement stmt = getConnection().prepareStatement(
-					"INSERT INTO `weplacm`.`candidates` (`name`, `email`) VALUES (?,?);"
+					"INSERT INTO `weplacm`.`candidates` (`candidatename`, `email`) VALUES (?,?);"
 					);
 			stmt.setString(1, candidate.getName());
 			stmt.setString(2, candidate.getEmail());
@@ -118,12 +150,12 @@ public class MySQLConnector {
 				try {
 					try{
 						getConnection().prepareStatement(
-								"INSERT INTO weplacm.skills (`name`) VALUES ('"+skill.getName()+"');"
+								"INSERT INTO weplacm.skills (`skillname`) VALUES ('"+skill.getName()+"');"
 								).execute();
 					} catch(SQLIntegrityConstraintViolationException uniqueE){
 
 					}
-					ResultSet rs = getConnection().prepareStatement("SELECT skills.id_skill FROM weplacm.skills WHERE skills.`name` = '"+skill.getName()+"';").executeQuery();
+					ResultSet rs = getConnection().prepareStatement("SELECT skills.id_skill FROM weplacm.skills WHERE skills.`skillname` = '"+skill.getName()+"';").executeQuery();
 					int skillid = -1;
 					while(rs.next()){
 						skillid = rs.getInt(1);
@@ -179,7 +211,7 @@ public class MySQLConnector {
 				String statement = 
 						"CREATE TABLE `weplacm`.`candidates` ("
 								+"`id_candidate` INT NOT NULL AUTO_INCREMENT,"
-								+"`name` VARCHAR(45) NULL,"
+								+"`candidatename` VARCHAR(45) NULL,"
 								+"`email` VARCHAR(45) NULL,"
 								+"PRIMARY KEY (`id_candidate`),"
 								+"UNIQUE INDEX `email_UNIQUE` (`email` ASC));";
@@ -190,10 +222,9 @@ public class MySQLConnector {
 				String statement = 
 						"CREATE TABLE `weplacm`.`skills` ("
 								+"`id_skill` INT NOT NULL AUTO_INCREMENT,"
-								+"`name` VARCHAR(45) NULL,"
+								+"`skillname` VARCHAR(45) NULL,"
 								+"PRIMARY KEY (`id_skill`),"
-								+"UNIQUE INDEX `id_skill_UNIQUE` (`id_skill` ASC));"
-								+"UNIQUE INDEX `name_UNIQUE` (`name` ASC));";
+								+"UNIQUE INDEX `skillname_UNIQUE` (`skillname` ASC));";
 				Statement stmt = getConnection().createStatement();
 				stmt.executeUpdate(statement);
 			}
@@ -240,7 +271,7 @@ public class MySQLConnector {
 			for(String name : usernames){
 				try {
 					PreparedStatement stmt = getConnection().prepareStatement(
-							"INSERT INTO `weplacm`.`candidates` (`name`, `email`) VALUES (?, ?);"
+							"INSERT INTO `weplacm`.`candidates` (`candidatename`, `email`) VALUES (?, ?);"
 							);
 					stmt.setString(1, name);
 					stmt.setString(2, (name+"@test.de"));
@@ -255,7 +286,7 @@ public class MySQLConnector {
 			for(String skill : skills){
 				try {
 					PreparedStatement stmt = getConnection().prepareStatement(
-							"INSERT INTO `weplacm`.`skills` (`name`) VALUES (?);"
+							"INSERT INTO `weplacm`.`skills` (`skillname`) VALUES (?);"
 							);
 					stmt.setString(1, skill);
 					stmt.executeUpdate();

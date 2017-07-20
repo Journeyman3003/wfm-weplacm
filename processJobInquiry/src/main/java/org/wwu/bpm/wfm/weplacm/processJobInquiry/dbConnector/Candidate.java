@@ -7,6 +7,11 @@ public class Candidate {
 	private String email, name;
 	private ArrayList<Skill> skills;
 	private int dbID;
+	public Candidate(int dbID, String name, String email){
+		this.dbID = dbID;
+		this.name = name;
+		this.email = email;
+	}
 	public Candidate(){
 		skills = new ArrayList<Skill>();
 	}
