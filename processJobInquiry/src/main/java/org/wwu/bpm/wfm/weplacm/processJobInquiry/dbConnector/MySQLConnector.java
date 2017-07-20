@@ -5,10 +5,12 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import org.camunda.bpm.dmn.engine.impl.hitpolicy.UniqueHitPolicyHandler;
 import org.wwu.bpm.wfm.weplacm.processJobInquiry.services.AddCandidateToDatabase;
 
 import com.mysql.jdbc.DatabaseMetaData;
@@ -67,9 +69,23 @@ public class MySQLConnector {
 			createDefaultEntries();
 		}
 	}
-
-	public static void addCandidate(){
+	
+	public static void main(String [] args){
+		Candidate c = new Candidate();
+		c.setEmail("test@test.de");
+		c.setName("Test");
+		c.addSkill("test1");
+		c.addSkill("test2");
+		addCandidateToDatabase(c);
+		addCandidateToDatabase(c);
+	}
+	
+	public static ArrayList<Candidate> getCandidatesWithSkill(ArrayList<Skill> skill){
+		ArrayList<Candidate> candidates = new ArrayList<>();
 		
+		
+		
+		return candidates;
 	}
 	
 	public static Connection getConnection(){
@@ -77,7 +93,7 @@ public class MySQLConnector {
 			new MySQLConnector();
 		return con;
 	}
-	
+
 	private static void addCandidateToDatabase(Candidate candidate){
 		try {
 			PreparedStatement stmt = getConnection().prepareStatement(
@@ -85,37 +101,48 @@ public class MySQLConnector {
 					);
 			stmt.setString(1, candidate.getName());
 			stmt.setString(2, candidate.getEmail());
-			stmt.execute();
-			
+			try{
+				stmt.execute();
+			} catch(SQLIntegrityConstraintViolationException uniqueE){
+
+			}
 			ResultSet candidateidquery = getConnection().prepareStatement("SELECT `candidates`.`id_candidate` FROM `weplacm`.`candidates` WHERE `candidates`.`email` = '"+candidate.getEmail()+"';").executeQuery();
 			int candidateid=-1;
 			while(candidateidquery.next()){
 				candidateid=candidateidquery.getInt(1);
 				candidate.setCandidateID(candidateid);
 			}
-			
+
 			candidate.getSkills().forEach(skill ->
 			{
 				try {
-					getConnection().prepareStatement(
-							"INSERT INTO weplacm.skills (`name`) VALUES ('"+skill.getName()+"');"
-							).execute();
+					try{
+						getConnection().prepareStatement(
+								"INSERT INTO weplacm.skills (`name`) VALUES ('"+skill.getName()+"');"
+								).execute();
+					} catch(SQLIntegrityConstraintViolationException uniqueE){
+
+					}
 					ResultSet rs = getConnection().prepareStatement("SELECT skills.id_skill FROM weplacm.skills WHERE skills.`name` = '"+skill.getName()+"';").executeQuery();
 					int skillid = -1;
 					while(rs.next()){
 						skillid = rs.getInt(1);
 						skill.setDBID(skillid);
 					}
-					getConnection().prepareStatement(
-							"INSERT INTO weplacm.candidates_skill_matching (`candidate_id`, `skill_id`) VALUES ("+candidate.getCandidateID()+","+skill.getDBID()+");"
-							).execute();
+					try{
+						getConnection().prepareStatement(
+								"INSERT INTO weplacm.candidates_skill_matching (`candidate_id`, `skill_id`) VALUES ("+candidate.getCandidateID()+","+skill.getDBID()+");"
+								).execute();
+					} catch(SQLIntegrityConstraintViolationException uniqueE){
+						
+					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			});
-			
-			
+
+
 
 		} catch (MySQLIntegrityConstraintViolationException mysql){
 			System.out.println("Email already exists");
@@ -124,7 +151,7 @@ public class MySQLConnector {
 			e.printStackTrace();
 		} 
 	}
-	
+
 	private static void createMissingDatabase(Connection con){
 		if(!checkIfDatabaseExists(con)){
 			try {
@@ -138,7 +165,7 @@ public class MySQLConnector {
 			}
 		}
 	}
-	
+
 	private static void createMissingTables(){
 		Vector<String> dbNames = new Vector<String>();
 		try {
@@ -165,7 +192,8 @@ public class MySQLConnector {
 								+"`id_skill` INT NOT NULL AUTO_INCREMENT,"
 								+"`name` VARCHAR(45) NULL,"
 								+"PRIMARY KEY (`id_skill`),"
-								+"UNIQUE INDEX `id_skill_UNIQUE` (`id_skill` ASC));";
+								+"UNIQUE INDEX `id_skill_UNIQUE` (`id_skill` ASC));"
+								+"UNIQUE INDEX `name_UNIQUE` (`name` ASC));";
 				Statement stmt = getConnection().createStatement();
 				stmt.executeUpdate(statement);
 			}
@@ -254,7 +282,7 @@ public class MySQLConnector {
 			}
 		}
 	}
-	
+
 	private static boolean checkIfDatabaseExists(Connection con){
 		try {
 			ResultSet meta = con.getMetaData().getCatalogs();
@@ -269,7 +297,7 @@ public class MySQLConnector {
 		}
 		return false;
 	}
-	
+
 	private static boolean checkIfTableIsEmpty(String tablename){
 		try {
 			PreparedStatement stmt = getConnection().prepareStatement(
