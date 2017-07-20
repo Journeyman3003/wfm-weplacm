@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
+import org.wwu.bpm.wfm.weplacm.processJobInquiry.mail.Mailer;
 
 public class FindCandidatesInCandidateDB implements JavaDelegate{
 
@@ -11,6 +12,7 @@ public class FindCandidatesInCandidateDB implements JavaDelegate{
 
 	public void execute(DelegateExecution execution) throws Exception {
 	  LOGGER.info("Processing request by '" + execution.getVariable("customerId") + "'...");
+	  Mailer.send("recruiting.weplacm@gmail.com", "DieAntwortIst42", "toby.mai@web.de", "hi", "Franziska T.", "Sie sind gefeuert",0);
 	}	
 	
 }
