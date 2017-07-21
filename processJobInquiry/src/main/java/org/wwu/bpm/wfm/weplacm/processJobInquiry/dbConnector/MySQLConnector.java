@@ -10,6 +10,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import org.wwu.bpm.wfm.weplacm.processJobInquiry.entity.CV;
+
 import com.mysql.jdbc.DatabaseMetaData;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
@@ -68,24 +70,24 @@ public class MySQLConnector {
 	}
 	
 	public static void main(String [] args){
-		Candidate c = new Candidate();
-		c.setEmail("test@test.de");
-		c.setName("Test");
-		c.addSkill("test1");
-		c.addSkill("test2");
-		addCandidateToDatabase(c);
-		
-		c.setEmail("alias@test.de");
-		c.setName("Test2");
-		c.addSkill("test1");
-		c.addSkill("test2");
-		addCandidateToDatabase(c);
-		
-		ArrayList<Skill> skills = new ArrayList<>();
-		skills.add(new Skill("test1"));
-		skills.add(new Skill("test2"));
-		getCandidatesWithSkill(skills);
-		
+//		Candidate c = new Candidate();
+//		c.setEmail("test@test.de");
+//		c.setName("Test");
+//		c.addSkill("test1");
+//		c.addSkill("test2");
+//		addCandidateToDatabase(c);
+//		
+//		c.setEmail("alias@test.de");
+//		c.setName("Test2");
+//		c.addSkill("test1");
+//		c.addSkill("test2");
+//		addCandidateToDatabase(c);
+//		
+//		ArrayList<Skill> skills = new ArrayList<>();
+//		skills.add(new Skill("test1"));
+//		skills.add(new Skill("test2"));
+//		getCandidatesWithSkill(skills);
+			
 	}
 	
 	/**
@@ -123,7 +125,20 @@ public class MySQLConnector {
 		return con;
 	}
 
-	private static void addCandidateToDatabase(Candidate candidate){
+	public static boolean checkCandidateExistence(CV cv) {
+		try {
+			PreparedStatement stmt = getConnection().prepareStatement(
+					"SELECT count(*) FROM weplacm.candidates WHERE email =?;");
+			stmt.setString(1, cv.getEmail());
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next() && rs.getInt(1) == 0) return false;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
+	
+	public static void addCandidateToDatabase(Candidate candidate){
 		try {
 			PreparedStatement stmt = getConnection().prepareStatement(
 					"INSERT INTO `weplacm`.`candidates` (`candidatename`, `email`) VALUES (?,?);"
@@ -254,8 +269,8 @@ public class MySQLConnector {
 	private static void createDefaultEntries(){
 		ArrayList<String> usernames = new ArrayList<String>();
 		ArrayList<String> skills = new ArrayList<String>();
-		usernames.add("Hans");
-		usernames.add("Jürgen");
+		usernames.add("Tobias Mai");
+		usernames.add("Michael Kurtz");
 		usernames.add("Peter");
 		usernames.add("Werner");
 		usernames.add("Günther");

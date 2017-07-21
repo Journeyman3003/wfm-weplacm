@@ -79,7 +79,7 @@ public class ContinueServlet extends HttpServlet{
 			runtimeService.createMessageCorrelation("ExternalTrigger")
 			.processInstanceId(processId).correlate();
 			} catch (MismatchingMessageCorrelationException e) {
-				response.getWriter().append("{\"error\":\"MismatchingMessageCorrelationException\", \"status\":\"instance " +processId + " not found\"}");
+				response.getWriter().append("{\"error\":\"MismatchingMessageCorrelationException\", \"status\":\"instance " +processId + " not found or not waiting for continuation!\"}");
 			} catch (Exception e) {
 				response.getWriter().append("{\"error\":\"unknown\", \"status\":\"instance " +processId + " not correlated\"}");				
 			}

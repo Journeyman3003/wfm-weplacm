@@ -19,7 +19,7 @@
     <bpmn:sequenceFlow id="SequenceFlow_1ibbg8d" sourceRef="sortCVs" targetRef="filterCVsAfterSorting" />
     <bpmn:sequenceFlow id="SequenceFlow_0aa3ctm" sourceRef="Task_147o1gc" targetRef="openingXORCandidateExisting" />
     <bpmn:sequenceFlow id="SequenceFlow_1ef5tap" name="existing" sourceRef="openingXORCandidateExisting" targetRef="closingXORCandidateExisting">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">$(existing)</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${existing}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_134egp0" sourceRef="openingXORCVAvailable" targetRef="sortCVs">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${sufficient}</bpmn:conditionExpression>
@@ -27,7 +27,7 @@
     <bpmn:sequenceFlow id="SequenceFlow_0ph069b" sourceRef="checkCVsAvailability" targetRef="openingXORCVAvailable" />
     <bpmn:sequenceFlow id="SequenceFlow_0njqb1p" sourceRef="addCandidateToDB" targetRef="closingXORCandidateExisting" />
     <bpmn:sequenceFlow id="SequenceFlow_0yveb9a" name="new" sourceRef="openingXORCandidateExisting" targetRef="addCandidateToDB">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">$(!existing)</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!existing}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_1puumqw" sourceRef="requestAdditionalInformation" targetRef="EndEvent_1ahwzml" />
     <bpmn:sequenceFlow id="SequenceFlow_1vmg3il" sourceRef="openingANDProcessJobInquiry" targetRef="FindCandidatesInDB" />

@@ -12,6 +12,7 @@
 		<servlet-name>StartProcessByJobInquiry</servlet-name>
 		<url-pattern>/job-inquiry</url-pattern>
 	</servlet-mapping>
+	
 	<servlet>
 		<description></description>
 		<display-name>ReceivePayment</display-name>
@@ -22,7 +23,8 @@
 		<servlet-name>ReceivePayment</servlet-name>
 		<url-pattern>/receive-payment</url-pattern>
 	</servlet-mapping>
-		<servlet>
+	
+	<servlet>
 		<description></description>
 		<display-name>ContinueProcess</display-name>
 		<servlet-name>ContinueProcess</servlet-name>
@@ -32,4 +34,16 @@
 		<servlet-name>ContinueProcess</servlet-name>
 		<url-pattern>/continue-process</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<description></description>
+		<display-name>ReceiveCV</display-name>
+		<servlet-name>ReceiveCV</servlet-name>
+		<servlet-class>org.wwu.bpm.wfm.weplacm.processJobInquiry.servlets.IncomingCVServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ReceiveCV</servlet-name>
+		<url-pattern>/receive-cv</url-pattern>
+	</servlet-mapping>
+	
 </web-app>
