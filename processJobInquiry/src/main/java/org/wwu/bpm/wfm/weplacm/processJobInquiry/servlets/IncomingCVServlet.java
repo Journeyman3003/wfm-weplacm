@@ -3,6 +3,10 @@ package org.wwu.bpm.wfm.weplacm.processJobInquiry.servlets;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,10 +15,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.camunda.bpm.engine.MismatchingMessageCorrelationException;
 import org.camunda.bpm.engine.ProcessEngine;
+import org.camunda.bpm.engine.ProcessEngineException;
 import org.camunda.bpm.engine.ProcessEngines;
 import org.camunda.bpm.engine.RuntimeService;
+import org.camunda.bpm.engine.variable.Variables;
+import org.camunda.bpm.engine.variable.value.ObjectValue;
+import org.wwu.bpm.wfm.weplacm.processJobInquiry.entity.CV;
+import org.wwu.bpm.wfm.weplacm.processJobInquiry.entity.CVEnvelope;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 public class IncomingCVServlet extends HttpServlet {
 	/**
@@ -50,16 +60,37 @@ public class IncomingCVServlet extends HttpServlet {
 			response.getWriter().append("{\"error\":\"invalidRequest\",\"status\":\"wrong content type\"}");
 		}
 		BufferedReader reader = request.getReader();
-		String processId;
+		CVEnvelope cvEnv;
+		
+		
+		//build CV
+		CV cv = new CV();
+		cv.setName(request.getParameter("name"));
+		cv.setAddress(request.getParameter("address"));
+		cv.setEmail(request.getParameter("email"));
+		DateFormat format = new SimpleDateFormat("MMMM d, yyyy");
+		Date date;
 		try {
-			processId = new Gson().fromJson(reader, String.class);
+			date = format.parse(request.getParameter("birthday"));
+			cv.setBirthday(date);
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
+		Gson gson = new GsonBuilder()
+			    .setDateFormat("yyyy-MM-dd")
+			    .create();
+		try {
+			cvEnv = gson.fromJson(reader, CVEnvelope.class);
 		} catch (Exception e) {
 			response.getWriter().append("{\"error\":\"invalidRequest\", \"status\":\"failed to creade GSON\"}");
 			return; //break
 		}
 		
 		
-		if (null == processId || "".equals(processId)) {
+		if (null == cvEnv || "".equals(cvEnv.getProcessInstanceId())) {
 			response.getWriter().append("{\"error\":\"invalidRequest\", \"status\":\"GSON not correctly created\"}");
 			return; //break
 		} else {
@@ -68,12 +99,15 @@ public class IncomingCVServlet extends HttpServlet {
 			//Map<String,Object> map = new HashMap<String,Object>();
 			//map.put("jobInquiry", job);
 			try {
-			runtimeService.createMessageCorrelation("ExternalTrigger")
-			.processInstanceId(processId).correlate();
-			} catch (MismatchingMessageCorrelationException e) {
-				response.getWriter().append("{\"error\":\"MismatchingMessageCorrelationException\", \"status\":\"instance " +processId + " not found\"}");
+				//temporary CV camunda variable for next step
+				ObjectValue typedCV = Variables.objectValue(cvEnv.getCv()).serializationDataFormat("application/json").create();
+				runtimeService.setVariable(cvEnv.getProcessInstanceId(), "tempCV", typedCV);
+				runtimeService.createMessageCorrelation("ApplicationInformation")
+				.processInstanceId(cvEnv.getProcessInstanceId()).correlate();
+			} catch (ProcessEngineException e) {
+				response.getWriter().append("{\"error\":\"ProcessEngineException\", \"status\":\"instance " +cvEnv.getProcessInstanceId() + " not found\"}");
 			} catch (Exception e) {
-				response.getWriter().append("{\"error\":\"unknown\", \"status\":\"instance " +processId + " not correlated\"}");				
+				response.getWriter().append("{\"error\":\"unknown\", \"status\":\"instance " +cvEnv.getProcessInstanceId() + " not correlated\"}");				
 			}
 			
 		}
