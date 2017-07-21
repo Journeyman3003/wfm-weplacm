@@ -12,7 +12,5 @@ public class FindCandidatesInCandidateDB implements JavaDelegate{
 
 	public void execute(DelegateExecution execution) throws Exception {
 	  LOGGER.info("Processing request by '" + execution.getVariable("customerId") + "'...");
-	  Mailer.send("recruiting.weplacm@gmail.com", "DieAntwortIst42", "toby.mai@web.de", "hi", "Franziska T.", "Sie sind gefeuert",0);
 	}	
-	
 }

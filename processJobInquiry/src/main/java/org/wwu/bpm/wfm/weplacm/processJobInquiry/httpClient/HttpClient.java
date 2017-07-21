@@ -11,6 +11,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.wwu.bpm.wfm.weplacm.processJobInquiry.entity.JobInquiryResponse;
 
 import com.google.gson.Gson;
 
@@ -29,16 +30,16 @@ public class HttpClient {
 		try {
 		    HttpPost httppost = new HttpPost(url);
 		    
+		    JobInquiryResponse jobResponse = new JobInquiryResponse(accepted, processInstanceId);
 		    
-		    
-		    StringEntity jobAccepted = new StringEntity(new Gson().toJson(accepted));
+		    StringEntity jobInquiryResponse = new StringEntity(new Gson().toJson(jobResponse));
 		    // It may be more appropriate to use FileEntity class in this particular
 		    // instance but we are using a more generic InputStreamEntity to demonstrate
 		    // the capability to stream out data from any arbitrary source
 		    //
 		    // FileEntity entity = new FileEntity(file, "binary/octet-stream");
 		
-		    httppost.setEntity(jobAccepted);
+		    httppost.setEntity(jobInquiryResponse);
 		
 		    System.out.println("Executing request: " + httppost.getRequestLine());
 		    CloseableHttpResponse response = httpclient.execute(httppost);

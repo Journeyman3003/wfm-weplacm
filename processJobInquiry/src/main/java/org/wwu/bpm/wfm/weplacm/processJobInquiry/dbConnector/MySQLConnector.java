@@ -31,7 +31,7 @@ import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationExceptio
  *
  */
 public class MySQLConnector {
-	private static String dbHost="localhost";
+	private static String dbHost="172.17.0.2";
 	private static String dbPort="3306";
 	private static String dbName="weplacm";
 	private static String dbUser="root";

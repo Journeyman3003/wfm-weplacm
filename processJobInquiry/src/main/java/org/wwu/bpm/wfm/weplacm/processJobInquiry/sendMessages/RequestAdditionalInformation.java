@@ -4,7 +4,8 @@ import java.util.logging.Logger;
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
-
+import org.wwu.bpm.wfm.weplacm.processJobInquiry.Util;
+import org.wwu.bpm.wfm.weplacm.processJobInquiry.entity.JobInquiry;
 import org.wwu.bpm.wfm.weplacm.processJobInquiry.httpClient.HttpClient; 
 
 public class RequestAdditionalInformation implements JavaDelegate{
@@ -13,7 +14,12 @@ public class RequestAdditionalInformation implements JavaDelegate{
 
 	public void execute(DelegateExecution execution) throws Exception {
 	  LOGGER.info("Processing request by '" + execution.getVariable("customerId") + "'...");
-	  	HttpClient.postJobInquiryResponse("http://localhost", true, "123");
+	  LOGGER.info("Obtaining ProcessInstanceId of Supplicant...");
+	  JobInquiry jobInquiry = (JobInquiry) execution.getVariable("jobInquiry");
+	  LOGGER.info("Obtaining ProcessInstanceId of Supplicant:" + jobInquiry.getProcessId() +" ...");
+	  	HttpClient.postJobInquiryResponse(Util.WBIG_URL, false, jobInquiry.getProcessId());
+	  LOGGER.info("Sent HTTP requeist for additional information");
+	  	
 	}	
 	
 }

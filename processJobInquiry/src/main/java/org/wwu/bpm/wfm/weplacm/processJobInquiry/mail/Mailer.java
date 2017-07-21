@@ -11,16 +11,16 @@ import com.sun.mail.util.MailSSLSocketFactory;
 public class Mailer{  
 	
 	public static String REJECTION_MSG = "Sehr geehrte/r %s " +
-          ",\nwir haben Ihre Bewerbung für  %s erhalten. "
-          + "\nLeider müssen wir Ihnen mitteilen, dass wir uns für einen anderen Bewerber entschieden haben."
-          + "\nWir wünschen Ihnen für Ihre weitere berufliche und private Zukunft alles Gute und viel Erfolg"
+          ",\nwir haben Ihre Bewerbung fï¿½r  %s erhalten. "
+          + "\nLeider mï¿½ssen wir Ihnen mitteilen, dass wir uns fï¿½r einen anderen Bewerber entschieden haben."
+          + "\nWir wï¿½nschen Ihnen fï¿½r Ihre weitere berufliche und private Zukunft alles Gute und viel Erfolg"
           + "\nIhr weplacm Recruiting Team";
 	
 	public static String INVITATION_MSG = "Sehr geehrte/r %s " +
-	          ",\nwir haben notiert, dass Sie interesse an zukünftigen Job-Angeboten haben. In diesem Zusammenhang haben wir"
-	          + "ein für sie attraktives Jobangebot gefunden: %s erhalten. "
+	          ",\nwir haben notiert, dass Sie interesse an zukï¿½nftigen Job-Angeboten haben. In diesem Zusammenhang haben wir"
+	          + "ein fï¿½r sie attraktives Jobangebot gefunden: %s . "
 	          + "\nDieses finden sie hier: %s"
-	          + "\nWir hoffen, dass dieses Angebot für sie ansprechend is. Viel Erfolg"
+	          + "\nWir hoffen, dass dieses Angebot fï¿½r sie ansprechend is. Viel Erfolg"
 	          + "\nIhr weplacm Recruiting Team";
 	
     public static void send(final String from,final String password,String to,String subject,String applicant, String topic, int msgtype){  
@@ -82,9 +82,9 @@ public class Mailer{
 //    bewerberAdresse = "Toby.Mai@web.de";
 //    header = "Ihre Bewerbung bei " + kunde;
 //    mailMessage = "Sehr geehrte/r " + name + 
-//            ",\nwir haben Ihre Bewerbung für " + kunde + " erhalten. "
-//            + "\nLeider müssen wir Ihnen mitteilen, dass wir uns für einen anderen Bewerber entschieden haben."
-//            + "\nWir wünschen Ihnen für Ihre weitere berufliche und private Zukunft alles Gute und viel Erfolg"
+//            ",\nwir haben Ihre Bewerbung fï¿½r " + kunde + " erhalten. "
+//            + "\nLeider mï¿½ssen wir Ihnen mitteilen, dass wir uns fï¿½r einen anderen Bewerber entschieden haben."
+//            + "\nWir wï¿½nschen Ihnen fï¿½r Ihre weitere berufliche und private Zukunft alles Gute und viel Erfolg"
 //            + "\nIhr weplacm Recruiting Team";
 //    
 //    Mailer.send("recruiting.weplacm@gmail.com","DieAntwortIst42", bewerberAdresse, header, mailMessage);

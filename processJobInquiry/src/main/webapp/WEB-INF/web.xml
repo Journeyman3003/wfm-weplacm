@@ -22,4 +22,14 @@
 		<servlet-name>ReceivePayment</servlet-name>
 		<url-pattern>/receive-payment</url-pattern>
 	</servlet-mapping>
+		<servlet>
+		<description></description>
+		<display-name>ContinueProcess</display-name>
+		<servlet-name>ContinueProcess</servlet-name>
+		<servlet-class>org.wwu.bpm.wfm.weplacm.processJobInquiry.servlets.ContinueServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ContinueProcess</servlet-name>
+		<url-pattern>/continue-process</url-pattern>
+	</servlet-mapping>
 </web-app>

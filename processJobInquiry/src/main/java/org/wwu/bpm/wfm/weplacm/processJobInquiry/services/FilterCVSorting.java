@@ -15,7 +15,7 @@ public class FilterCVSorting implements JavaDelegate{
 
 	public void execute(DelegateExecution execution) throws Exception {
 	  LOGGER.info("Processing request by '" + execution.getVariable("customerId") + "'...");
-	  
+	  //should work alright
 	  @SuppressWarnings("unchecked")
 	  ArrayList<CV> cvCollection = (ArrayList<CV>) execution.getVariable("CVCollection");
 	  
