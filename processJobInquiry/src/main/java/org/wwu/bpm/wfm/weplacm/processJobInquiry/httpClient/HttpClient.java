@@ -12,6 +12,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.wwu.bpm.wfm.weplacm.processJobInquiry.entity.JobInquiryResponse;
+import org.wwu.bpm.wfm.weplacm.processJobInquiry.entity.NoCVAvailableResponse;
 
 import com.google.gson.Gson;
 
@@ -43,6 +44,22 @@ public class HttpClient {
 		
 		    System.out.println("Executing request: " + httppost.getRequestLine());
 		    CloseableHttpResponse response = httpclient.execute(httppost);
+		} catch (Exception e) {
+			System.out.println("you fucked up! most likely the host " + url + " could not be reached");
+		} finally {
+		    httpclient.close();
+		}
+	}
+	
+	public static void postNoCVsAvailable(String url, String processInstanceId) throws IOException {
+		CloseableHttpClient httpclient = HttpClients.createDefault();
+		try{
+			HttpPost httppost = new HttpPost(url);
+			
+			NoCVAvailableResponse noCVResponse = new NoCVAvailableResponse(processInstanceId);
+			StringEntity response = new StringEntity(new Gson().toJson(noCVResponse));
+			
+			httppost.setEntity(response);
 		} catch (Exception e) {
 			System.out.println("you fucked up! most likely the host " + url + " could not be reached");
 		} finally {

@@ -4,6 +4,10 @@ import java.util.logging.Logger;
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
+import org.wwu.bpm.wfm.weplacm.processJobInquiry.Util;
+import org.wwu.bpm.wfm.weplacm.processJobInquiry.entity.JobInquiry;
+import org.wwu.bpm.wfm.weplacm.processJobInquiry.entity.NoCVAvailableResponse;
+import org.wwu.bpm.wfm.weplacm.processJobInquiry.httpClient.HttpClient;
 
 public class SendRefusal implements JavaDelegate{
 
@@ -11,7 +15,12 @@ public class SendRefusal implements JavaDelegate{
 
 	public void execute(DelegateExecution execution) throws Exception {
 		LOGGER.info("Processing request by '" + execution.getVariable("customerId") + "'...");
-	 	  
+		LOGGER.info("Obtaining ProcessInstanceId of Supplicant...");
+		JobInquiry jobInquiry = (JobInquiry) execution.getVariable("jobInquiry");
+		LOGGER.info("Obtaining ProcessInstanceId of Supplicant:" + jobInquiry.getProcessId() +" ...");
+		HttpClient.postNoCVsAvailable(Util.WBIG_URL, jobInquiry.getProcessId());
+		LOGGER.info("Sent HTTP requeist for additional information");
+
 	}	
-	
+
 }
