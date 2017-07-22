@@ -3,17 +3,13 @@ package org.wwu.bpm.wfm.weplacm.processJobInquiry.httpClient;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
-import org.wwu.bpm.wfm.weplacm.processJobInquiry.Util;
 import org.wwu.bpm.wfm.weplacm.processJobInquiry.entity.CV;
+import org.wwu.bpm.wfm.weplacm.processJobInquiry.entity.CVCollectionEnvelope;
 import org.wwu.bpm.wfm.weplacm.processJobInquiry.entity.JobInquiryApproval;
 
 import com.google.gson.Gson;
@@ -89,15 +85,13 @@ public class HttpClient {
 		}
 	}
 	
-	public static void postRatedCVs(String url,ArrayList<CV> ratedCVs) throws IOException {
+	public static void postRatedCVs(String url,ArrayList<CV> ratedCVs, String processInstanceId) throws IOException {
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 		try {
 						
 		    HttpPost httppost = new HttpPost(url);
-		    
-		    //JobInquiryResponse jobResponse = new JobInquiryResponse(processInstanceId);
-		    
-		    StringEntity cvs = new StringEntity(new Gson().toJson(ratedCVs));
+		    		    
+		    StringEntity cvs = new StringEntity(new Gson().toJson(new CVCollectionEnvelope(ratedCVs, processInstanceId)));
 		
 		    httppost.setEntity(cvs);
 		
