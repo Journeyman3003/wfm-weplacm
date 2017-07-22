@@ -76,8 +76,10 @@ public class ContinueServlet extends HttpServlet{
 			//Map<String,Object> map = new HashMap<String,Object>();
 			//map.put("jobInquiry", job);
 			try {
-			runtimeService.createMessageCorrelation("ExternalTrigger")
-			.processInstanceId(processId).correlate();
+				runtimeService.createMessageCorrelation("ExternalTrigger")
+				.processInstanceId(processId).correlate();
+				response.getWriter().append("{\"error\":\"none\", \"status\":\"everything went as expected!\"}");				
+
 			} catch (MismatchingMessageCorrelationException e) {
 				response.getWriter().append("{\"error\":\"MismatchingMessageCorrelationException\", \"status\":\"instance " +processId + " not found or not waiting for continuation!\"}");
 			} catch (Exception e) {

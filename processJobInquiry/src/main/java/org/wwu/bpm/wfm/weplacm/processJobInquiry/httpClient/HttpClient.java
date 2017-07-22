@@ -1,6 +1,7 @@
 package org.wwu.bpm.wfm.weplacm.processJobInquiry.httpClient;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -11,6 +12,8 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.wwu.bpm.wfm.weplacm.processJobInquiry.Util;
+import org.wwu.bpm.wfm.weplacm.processJobInquiry.entity.CV;
 import org.wwu.bpm.wfm.weplacm.processJobInquiry.entity.JobInquiryResponse;
 import org.wwu.bpm.wfm.weplacm.processJobInquiry.entity.NoCVAvailableResponse;
 
@@ -26,19 +29,17 @@ public class HttpClient {
 //	post.setHeader("Content-type", "application/json");
 //	HttpResponse  response = httpClient.execute(post);
 //}
-	public static void postJobInquiryResponse(String url, Boolean accepted, String processInstanceId) throws IOException {
+	public static void postJobInquiryResponse(String url, String processInstanceId) throws IOException {
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 		try {
+			
+			//String urlAPI;
+			
 		    HttpPost httppost = new HttpPost(url);
 		    
-		    JobInquiryResponse jobResponse = new JobInquiryResponse(accepted, processInstanceId);
+		    //JobInquiryResponse jobResponse = new JobInquiryResponse(processInstanceId);
 		    
-		    StringEntity jobInquiryResponse = new StringEntity(new Gson().toJson(jobResponse));
-		    // It may be more appropriate to use FileEntity class in this particular
-		    // instance but we are using a more generic InputStreamEntity to demonstrate
-		    // the capability to stream out data from any arbitrary source
-		    //
-		    // FileEntity entity = new FileEntity(file, "binary/octet-stream");
+		    StringEntity jobInquiryResponse = new StringEntity(new Gson().toJson(processInstanceId));
 		
 		    httppost.setEntity(jobInquiryResponse);
 		
@@ -56,15 +57,41 @@ public class HttpClient {
 		try{
 			HttpPost httppost = new HttpPost(url);
 			
-			NoCVAvailableResponse noCVResponse = new NoCVAvailableResponse(processInstanceId);
-			StringEntity response = new StringEntity(new Gson().toJson(noCVResponse));
+			//NoCVAvailableResponse noCVResponse = new NoCVAvailableResponse(processInstanceId);
+			//only submit a plain json string....
+			StringEntity response = new StringEntity(new Gson().toJson(processInstanceId));
 			
 			httppost.setEntity(response);
+			
+			System.out.println("Executing request: " + httppost.getRequestLine());
+		    CloseableHttpResponse resp = httpclient.execute(httppost);
 		} catch (Exception e) {
 			System.out.println("you fucked up! most likely the host " + url + " could not be reached");
 		} finally {
 		    httpclient.close();
 		}
 	}
+	
+	public static void postRatedCVs(String url,ArrayList<CV> ratedCVs) throws IOException {
+		CloseableHttpClient httpclient = HttpClients.createDefault();
+		try {
+						
+		    HttpPost httppost = new HttpPost(url);
+		    
+		    //JobInquiryResponse jobResponse = new JobInquiryResponse(processInstanceId);
+		    
+		    StringEntity cvs = new StringEntity(new Gson().toJson(ratedCVs));
+		
+		    httppost.setEntity(cvs);
+		
+		    System.out.println("Executing request: " + httppost.getRequestLine());
+		    CloseableHttpResponse response = httpclient.execute(httppost);
+		} catch (Exception e) {
+			System.out.println("you fucked up! most likely the host " + url + " could not be reached");
+		} finally {
+		    httpclient.close();
+		}
+	}
+	
 }
 

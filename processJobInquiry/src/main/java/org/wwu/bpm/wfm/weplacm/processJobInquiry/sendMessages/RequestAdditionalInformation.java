@@ -17,8 +17,9 @@ public class RequestAdditionalInformation implements JavaDelegate{
 	  LOGGER.info("Obtaining ProcessInstanceId of Supplicant...");
 	  JobInquiry jobInquiry = (JobInquiry) execution.getVariable("jobInquiry");
 	  LOGGER.info("Obtaining ProcessInstanceId of Supplicant:" + jobInquiry.getProcessId() +" ...");
-	  	HttpClient.postJobInquiryResponse(Util.WBIG_URL, false, jobInquiry.getProcessId());
-	  LOGGER.info("Sent HTTP requeist for additional information");
+	  	HttpClient.postJobInquiryResponse(Util.WBIG_BASE_URL + "/" + Util.WBIG_REQUEST_ADDITIONAL_URI, jobInquiry.getProcessId());
+	  LOGGER.info("Sent HTTP requeist for additional information to "+ Util.WBIG_BASE_URL + "/" + Util.WBIG_REQUEST_ADDITIONAL_URI+ " ...");
+	  
 	  	
 	}	
 	

@@ -17,11 +17,22 @@
 		<description></description>
 		<display-name>ReceivePayment</display-name>
 		<servlet-name>ReceivePayment</servlet-name>
-		<servlet-class>org.wwu.bpm.wfm.weplacm.processJobInquiry.servlets.ReceivePayment</servlet-class>
+		<servlet-class>org.wwu.bpm.wfm.weplacm.processJobInquiry.servlets.ReceivePaymentServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>ReceivePayment</servlet-name>
 		<url-pattern>/receive-payment</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<description></description>
+		<display-name>ReceiveProlongation</display-name>
+		<servlet-name>ReceiveProlongation</servlet-name>
+		<servlet-class>org.wwu.bpm.wfm.weplacm.processJobInquiry.servlets.ProlongationRequestServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ReceiveProlongation</servlet-name>
+		<url-pattern>/receive-prolongation</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>

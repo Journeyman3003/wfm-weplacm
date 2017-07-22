@@ -1,22 +1,22 @@
 package org.wwu.bpm.wfm.weplacm.processJobInquiry.entity;
 
 public class JobInquiryResponse {
-	private Boolean accepted;
+//	private Boolean accepted;
 	private String processInstanceID;
 	
 	public JobInquiryResponse() {}
-	public JobInquiryResponse(Boolean accepted, String processInstanceID) {
-		this.accepted = accepted;
+	public JobInquiryResponse(String processInstanceID) {
+//		this.accepted = accepted;
 		this.processInstanceID = processInstanceID;
 	}
 
-	public Boolean getAccepted() {
-		return accepted;
-	}
-
-	public void setAccepted(Boolean accepted) {
-		this.accepted = accepted;
-	}
+//	public Boolean getAccepted() {
+//		return accepted;
+//	}
+//
+//	public void setAccepted(Boolean accepted) {
+//		this.accepted = accepted;
+//	}
 
 	public String getProcessInstanceID() {
 		return processInstanceID;
