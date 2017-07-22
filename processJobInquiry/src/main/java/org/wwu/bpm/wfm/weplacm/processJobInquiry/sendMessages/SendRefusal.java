@@ -15,7 +15,6 @@ public class SendRefusal implements JavaDelegate{
 
 	public void execute(DelegateExecution execution) throws Exception {
 		LOGGER.info("Processing request by '" + execution.getVariable("customerId") + "'...");
-	 	
 		@SuppressWarnings("unchecked")
 		ArrayList<CV> rejectedCVs = (ArrayList<CV>) execution.getVariable("rejectedCVs");
 		
@@ -26,5 +25,5 @@ public class SendRefusal implements JavaDelegate{
 			 				Mailer.send("recruiting.weplacm@gmail.com", "DieAntwortIst42", cv.getEmail(), "We are Sorry!", cv.getName(), jobInquiry.getTitle(),1);;
 							}});
 	}	
-	
+
 }
