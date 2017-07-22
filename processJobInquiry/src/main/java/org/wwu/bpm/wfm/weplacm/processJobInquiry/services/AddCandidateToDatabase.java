@@ -22,6 +22,7 @@ public class AddCandidateToDatabase implements JavaDelegate{
 		  candidate.setEmail(cv.getEmail());
 		  candidate.setName(cv.getName());
 		  ArrayList<Skill> skills = new ArrayList<Skill>();
+		  //don't even ask about that regex -> replace any common delimiter ("comma","period","semicolon") by "comma" and remove whitespace after commas
 		  for (String stringSkill : cv.getSkills().replaceAll(",\\s*",",").replaceAll("\\.\\s*",",").replaceAll(";\\s*",",").split(",")) {
 			  skills.add(new Skill(stringSkill));
 		  }

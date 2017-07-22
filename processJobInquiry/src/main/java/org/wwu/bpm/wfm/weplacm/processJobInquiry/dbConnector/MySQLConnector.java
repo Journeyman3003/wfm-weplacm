@@ -49,7 +49,10 @@ public class MySQLConnector {
 			createMissingDatabase(tempCon);
 			tempCon.close();
 			con = DriverManager.getConnection("jdbc:mysql://"+dbHost+":"+ dbPort+"/"+dbName+"?"+"user="+dbUser+"&"+"password="+dbPass);
-
+			createMissingTables();
+			if(autogenerate){
+				createDefaultEntries();
+			}
 		} catch (InstantiationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -63,10 +66,7 @@ public class MySQLConnector {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		createMissingTables();
-		if(autogenerate){
-			createDefaultEntries();
-		}
+
 	}
 	
 	public static void main(String [] args){

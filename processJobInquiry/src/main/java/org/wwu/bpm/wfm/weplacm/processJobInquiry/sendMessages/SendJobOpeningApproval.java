@@ -27,27 +27,27 @@ public class SendJobOpeningApproval implements JavaDelegate{
 		LOGGER.info("Obtaining ProcessInstanceId of Supplicant:" + jobInquiry.getProcessId() +" ...");
 		HttpClient.postJobInquiryResponse(Util.WBIG_URL, true, jobInquiry.getProcessId());
 		LOGGER.info("Sent HTTP request for approval of job");
-		//default cvs
-	    CV cv1 = new CV();
-	    CV cv2 = new CV();
-	    cv1.setName("Peter");
-	    cv2.setName("Hans");
-	      
-	    //ObjectValue typedJobInquiry1 = Variables.objectValue(cv1).serializationDataFormat("application/json").create();
-	    //ObjectValue typedJobInquiry2 = Variables.objectValue(cv2).serializationDataFormat("application/json").create();
-	      
-	    //CVCollection cvcol = new CVCollection();
-	    ArrayList<CV> cvsarray = new ArrayList<CV>();
-	    cvsarray.add(cv1);
-	    cvsarray.add(cv2);
-	    //cvcol.setCvs(cvsarray);
-	      
-	    ObjectValue typedJobInquiry3 = Variables.objectValue(cvsarray).serializationDataFormat("application/json").create();
-	      
-	//  execution.setVariable("CVCollection", typedJobInquiry3);
-	    ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
-	    RuntimeService runtimeService = processEngine.getRuntimeService();
-	    runtimeService.setVariable(execution.getId(), "CVCollection", typedJobInquiry3);
+//		//default cvs
+//	    CV cv1 = new CV();
+//	    CV cv2 = new CV();
+//	    cv1.setName("Peter");
+//	    cv2.setName("Hans");
+//	      
+//	    //ObjectValue typedJobInquiry1 = Variables.objectValue(cv1).serializationDataFormat("application/json").create();
+//	    //ObjectValue typedJobInquiry2 = Variables.objectValue(cv2).serializationDataFormat("application/json").create();
+//	      
+//	    //CVCollection cvcol = new CVCollection();
+//	    ArrayList<CV> cvsarray = new ArrayList<CV>();
+//	    cvsarray.add(cv1);
+//	    cvsarray.add(cv2);
+//	    //cvcol.setCvs(cvsarray);
+//	      
+//	    ObjectValue typedJobInquiry3 = Variables.objectValue(cvsarray).serializationDataFormat("application/json").create();
+//	      
+//	//  execution.setVariable("CVCollection", typedJobInquiry3);
+//	    ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
+//	    RuntimeService runtimeService = processEngine.getRuntimeService();
+//	    runtimeService.setVariable(execution.getId(), "CVCollection", typedJobInquiry3);
 		 
 		  
 		  

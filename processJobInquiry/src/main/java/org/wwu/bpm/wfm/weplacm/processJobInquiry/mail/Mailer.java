@@ -1,7 +1,10 @@
 package org.wwu.bpm.wfm.weplacm.processJobInquiry.mail;
 
 import java.security.GeneralSecurityException;
-import java.util.Properties;    
+import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.mail.*;    
 import javax.mail.internet.*;
 
@@ -9,6 +12,15 @@ import com.sun.mail.util.MailSSLSocketFactory;
 
    
 public class Mailer{  
+	
+	public static Boolean isValidMail(String email) {
+		final String MAIL_REGEX = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+				+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+		Pattern pattern = Pattern.compile(MAIL_REGEX); 
+		Matcher matcher = pattern.matcher(email);
+		return matcher.matches();
+	}
+	
 	
 	public static String REJECTION_MSG = "Sehr geehrte/r %s " +
           ",\nwir haben Ihre Bewerbung f�r  %s erhalten. "
@@ -24,7 +36,9 @@ public class Mailer{
 	          + "\nIhr weplacm Recruiting Team";
 	
     public static void send(final String from,final String password,String to,String subject,String applicant, String topic, int msgtype){  
-          
+          if (isValidMail(to)) {
+        	  
+
         //Mailer.send("recruiting.weplacm@gmail.com","DieAntwortIst42","Toby.Mai@web.de", header, mailMessage);
         //Get properties object    
           Properties props = new Properties();
@@ -71,7 +85,7 @@ public class Mailer{
            Transport.send(message);    
            System.out.println("message sent successfully");    
           } catch (MessagingException e) {throw new RuntimeException(e);}    
-             
+      } 
     }  
 //    String header;
 //    String mailMessage;
