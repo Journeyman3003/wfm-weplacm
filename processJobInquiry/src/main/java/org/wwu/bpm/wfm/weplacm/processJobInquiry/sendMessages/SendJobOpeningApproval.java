@@ -17,7 +17,7 @@ public class SendJobOpeningApproval implements JavaDelegate{
 		LOGGER.info("Obtaining ProcessInstanceId of Supplicant...");
 		JobInquiry jobInquiry = (JobInquiry) execution.getVariable("jobInquiry");
 		LOGGER.info("Obtaining ProcessInstanceId of Supplicant:" + jobInquiry.getProcessId() +" ...");
-		HttpClient.postJobInquiryResponse(Util.WBIG_BASE_URL + "/" + Util.WBIG_APPROVE_JOB_URI, jobInquiry.getProcessId());
+		HttpClient.postJobInquiryApproval(Util.WBIG_BASE_URL + "/" + Util.WBIG_APPROVE_JOB_URI, jobInquiry.getProcessId());
 		LOGGER.info("Sent HTTP request for approval of job to " +Util.WBIG_BASE_URL + "/" + Util.WBIG_APPROVE_JOB_URI +" ...");		
 		}	
 	

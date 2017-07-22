@@ -14,8 +14,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.wwu.bpm.wfm.weplacm.processJobInquiry.Util;
 import org.wwu.bpm.wfm.weplacm.processJobInquiry.entity.CV;
-import org.wwu.bpm.wfm.weplacm.processJobInquiry.entity.JobInquiryResponse;
-import org.wwu.bpm.wfm.weplacm.processJobInquiry.entity.NoCVAvailableResponse;
+import org.wwu.bpm.wfm.weplacm.processJobInquiry.entity.JobInquiryApproval;
 
 import com.google.gson.Gson;
 
@@ -29,7 +28,7 @@ public class HttpClient {
 //	post.setHeader("Content-type", "application/json");
 //	HttpResponse  response = httpClient.execute(post);
 //}
-	public static void postJobInquiryResponse(String url, String processInstanceId) throws IOException {
+	public static void postJobInquiryApproval(String url, String processInstanceId) throws IOException {
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 		try {
 			
@@ -43,6 +42,24 @@ public class HttpClient {
 		
 		    httppost.setEntity(jobInquiryResponse);
 		
+		    System.out.println("Executing request: " + httppost.getRequestLine());
+		    CloseableHttpResponse response = httpclient.execute(httppost);
+		} catch (Exception e) {
+			System.out.println("you fucked up! most likely the host " + url + " could not be reached");
+		} finally {
+		    httpclient.close();
+		}
+	}
+	
+	public static void postJobInquiryRejection(String url, JobInquiryApproval jobApproval) throws IOException {
+		CloseableHttpClient httpclient = HttpClients.createDefault();
+		try {			
+		    HttpPost httppost = new HttpPost(url);
+		   		    
+		    StringEntity jobInquiryResponse = new StringEntity(new Gson().toJson(jobApproval));
+		
+		    httppost.setEntity(jobInquiryResponse);
+		    
 		    System.out.println("Executing request: " + httppost.getRequestLine());
 		    CloseableHttpResponse response = httpclient.execute(httppost);
 		} catch (Exception e) {
