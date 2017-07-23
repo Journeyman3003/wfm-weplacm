@@ -171,7 +171,7 @@
       <bpmn:incoming>SequenceFlow_0no0mlf</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0l6mh7i</bpmn:outgoing>
       <bpmn:timerEventDefinition>
-        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">${jobInquiry.getDeadline()}</bpmn:timeDuration>
+        <bpmn:timeDate xsi:type="bpmn:tFormalExpression">${jobInquiry.getDeadline()}</bpmn:timeDate>
       </bpmn:timerEventDefinition>
     </bpmn:intermediateCatchEvent>
     <bpmn:sendTask id="sendApprovalForJobOpening" name="Send approval for job opening" camunda:class="org.wwu.bpm.wfm.weplacm.processJobInquiry.sendMessages.SendJobOpeningApproval">
