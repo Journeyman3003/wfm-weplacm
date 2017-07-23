@@ -37,7 +37,7 @@ public class HttpClient {
 		    StringEntity jobInquiryResponse = new StringEntity(new Gson().toJson(processInstanceId));
 		
 		    httppost.setEntity(jobInquiryResponse);
-		
+		    httppost.setHeader("content-type", "application/json");
 		    System.out.println("Executing request: " + httppost.getRequestLine());
 		    CloseableHttpResponse response = httpclient.execute(httppost);
 		} catch (Exception e) {
@@ -55,7 +55,7 @@ public class HttpClient {
 		    StringEntity jobInquiryResponse = new StringEntity(new Gson().toJson(jobApproval));
 		
 		    httppost.setEntity(jobInquiryResponse);
-		    
+		    httppost.setHeader("content-type", "application/json");
 		    System.out.println("Executing request: " + httppost.getRequestLine());
 		    CloseableHttpResponse response = httpclient.execute(httppost);
 		} catch (Exception e) {
@@ -77,6 +77,7 @@ public class HttpClient {
 			httppost.setEntity(response);
 			
 			System.out.println("Executing request: " + httppost.getRequestLine());
+			httppost.setHeader("content-type", "application/json");
 		    CloseableHttpResponse resp = httpclient.execute(httppost);
 		} catch (Exception e) {
 			System.out.println("you fucked up! most likely the host " + url + " could not be reached");
@@ -96,6 +97,7 @@ public class HttpClient {
 		    httppost.setEntity(cvs);
 		
 		    System.out.println("Executing request: " + httppost.getRequestLine());
+		    httppost.setHeader("content-type", "application/json");
 		    CloseableHttpResponse response = httpclient.execute(httppost);
 		} catch (Exception e) {
 			System.out.println("you fucked up! most likely the host " + url + " could not be reached");
