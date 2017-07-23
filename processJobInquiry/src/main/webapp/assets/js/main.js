@@ -28,7 +28,7 @@ $("form.ajax").on("submit", function(){
 		method=that.attr("method"),
 		data= {}
 	
-	that.find("[name").each(function(index, value){
+	that.find("[name]").each(function(index, value){
 		var that = $(this),
 			name = that.attr("name"),
 			value = that.val();
