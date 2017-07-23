@@ -27,7 +27,7 @@ public class ContactDBCandidates implements JavaDelegate{
 	  //crash backup
 	  if (adequateCandidates == null) adequateCandidates = new ArrayList<Candidate>();
 	  for (Candidate candidate : adequateCandidates) {
-		  Mailer.send("recruiting.weplacm@gmail.com", "DieAntwortIst42", candidate.getEmail(), "We Want You!", candidate.getName(), jobInquiry.getTitle(),0, Util.WEPLACM_FORM_URL + processInstanceId);
+		  Mailer.send("recruiting.weplacm@gmail.com", "DieAntwortIst42", candidate.getEmail(), "We have found a position for you!", candidate.getName(), jobInquiry.getTitle(),0, Util.WEPLACM_FORM_URL + processInstanceId);
 	  }
 	}	
 	

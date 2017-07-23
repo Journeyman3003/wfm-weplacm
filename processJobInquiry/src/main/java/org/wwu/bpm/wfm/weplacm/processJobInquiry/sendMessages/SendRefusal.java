@@ -22,7 +22,7 @@ public class SendRefusal implements JavaDelegate{
 		
 		rejectedCVs.forEach(cv -> {
 							if (!(cv.getEmail() == null) && (!(cv.getName() == null))) {
-			 				Mailer.send("recruiting.weplacm@gmail.com", "DieAntwortIst42", cv.getEmail(), "We are Sorry!", cv.getName(), jobInquiry.getTitle(),1,"");;
+			 				Mailer.send("recruiting.weplacm@gmail.com", "DieAntwortIst42", cv.getEmail(), "Your application as "+ jobInquiry.getTitle(), cv.getName(), jobInquiry.getTitle(),1,"");;
 							}});
 	}	
 

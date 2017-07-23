@@ -22,19 +22,22 @@ public class Mailer{
 	}
 	
 	
-	public static String REJECTION_MSG = "Sehr geehrte/r %s " +
-          ",\nwir haben Ihre Bewerbung f�r  %s erhalten. "
-          + "\nLeider m�ssen wir Ihnen mitteilen, dass wir uns f�r einen anderen Bewerber entschieden haben."
-          + "\nWir w�nschen Ihnen f�r Ihre weitere berufliche und private Zukunft alles Gute und viel Erfolg"
-          + "\nIhr weplacm Recruiting Team";
+	public static String REJECTION_MSG = "Dear Ms/Mr %s, " 
+		  + "\nThank you for your application as %s."
+          + "\nWe regret to inform you that your profile does not fully match the requirements for the vacant position."
+          + "\nWe will keep your application in our files and contact you in case of a future opening."
+          + "\nYours sincerely,"
+          + "\nWEPLACM Headhunting Agency";
+		
 	
-	public static String INVITATION_MSG = "Sehr geehrte/r %s " +
-	          ",\nwir haben notiert, dass Sie interesse an zuk�nftigen Job-Angeboten haben. In diesem Zusammenhang haben wir"
-	          + "ein f�r sie attraktives Jobangebot gefunden: %s . "
-	          + "\nDieses finden sie hier: %s"
-	          + "\nWir hoffen, dass dieses Angebot f�r sie ansprechend is. Viel Erfolg"
-	          + "\nIhr weplacm Recruiting Team";
-	
+	public static String INVITATION_MSG = "Dear Ms/Mr %s, "
+			  + "\nas agreed as part of your previous application, we have kept your files and data."
+	          + "\nToday, we are excited to inform you that there is a vacant position matching your profile as well as Curriculum Vitae: %s. "
+	          + "\nIf you are interested, we would be happy to receive your application through our website: %s"
+	          + "\nWe hope to have found an appropriate offering!"
+	          + "\nYours sincerely,"
+	          + "\nWEPLACM Headhunting Agency";
+		
     public static void send(final String from,final String password,String to,String subject,String applicant, String topic, int msgtype, String optionalUrl){  
           if (isValidMail(to)) {
         	  
@@ -87,19 +90,4 @@ public class Mailer{
           } catch (MessagingException e) {throw new RuntimeException(e);}    
       } 
     }  
-//    String header;
-//    String mailMessage;
-//    String name, bewerberAdresse, kunde;
-//    
-//    kunde = "xyz Technologys";
-//    name = "Tobias M.";
-//    bewerberAdresse = "Toby.Mai@web.de";
-//    header = "Ihre Bewerbung bei " + kunde;
-//    mailMessage = "Sehr geehrte/r " + name + 
-//            ",\nwir haben Ihre Bewerbung f�r " + kunde + " erhalten. "
-//            + "\nLeider m�ssen wir Ihnen mitteilen, dass wir uns f�r einen anderen Bewerber entschieden haben."
-//            + "\nWir w�nschen Ihnen f�r Ihre weitere berufliche und private Zukunft alles Gute und viel Erfolg"
-//            + "\nIhr weplacm Recruiting Team";
-//    
-//    Mailer.send("recruiting.weplacm@gmail.com","DieAntwortIst42", bewerberAdresse, header, mailMessage);
 } 
