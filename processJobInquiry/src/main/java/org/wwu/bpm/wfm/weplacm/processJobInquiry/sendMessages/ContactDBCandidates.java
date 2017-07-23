@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
+import org.wwu.bpm.wfm.weplacm.processJobInquiry.Util;
 import org.wwu.bpm.wfm.weplacm.processJobInquiry.dbConnector.Candidate;
 import org.wwu.bpm.wfm.weplacm.processJobInquiry.entity.JobInquiry;
 import org.wwu.bpm.wfm.weplacm.processJobInquiry.mail.Mailer;
@@ -21,11 +22,12 @@ public class ContactDBCandidates implements JavaDelegate{
 	  ArrayList<Candidate> adequateCandidates = (ArrayList<Candidate>) execution.getVariable("adequateCandidates");
 	  
 	  JobInquiry jobInquiry = (JobInquiry) execution.getVariable("jobInquiry");
-	  
+	  String processInstanceId = execution.getProcessInstanceId();
+	  	  
 	  //crash backup
 	  if (adequateCandidates == null) adequateCandidates = new ArrayList<Candidate>();
 	  for (Candidate candidate : adequateCandidates) {
-		  Mailer.send("recruiting.weplacm@gmail.com", "DieAntwortIst42", candidate.getEmail(), "We Want You!", candidate.getName(), jobInquiry.getTitle(),0);
+		  Mailer.send("recruiting.weplacm@gmail.com", "DieAntwortIst42", candidate.getEmail(), "We Want You!", candidate.getName(), jobInquiry.getTitle(),0, Util.WEPLACM_FORM_URL + processInstanceId);
 	  }
 	}	
 	

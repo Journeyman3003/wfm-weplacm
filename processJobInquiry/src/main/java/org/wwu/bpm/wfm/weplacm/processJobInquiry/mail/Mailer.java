@@ -35,7 +35,7 @@ public class Mailer{
 	          + "\nWir hoffen, dass dieses Angebot f�r sie ansprechend is. Viel Erfolg"
 	          + "\nIhr weplacm Recruiting Team";
 	
-    public static void send(final String from,final String password,String to,String subject,String applicant, String topic, int msgtype){  
+    public static void send(final String from,final String password,String to,String subject,String applicant, String topic, int msgtype, String optionalUrl){  
           if (isValidMail(to)) {
         	  
 
@@ -78,7 +78,7 @@ public class Mailer{
            if (msgtype == 1) {
         	   msg = String.format(REJECTION_MSG, applicant, topic);
            } else {
-        	   msg = String.format(INVITATION_MSG, applicant, topic, "http://localhost:8080/camunda/app/welcome/default/#/welcome");
+        	   msg = String.format(INVITATION_MSG, applicant, topic, optionalUrl);
            }
            message.setText(msg);    
            //send message  
