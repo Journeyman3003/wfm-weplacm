@@ -49,7 +49,7 @@
 			padding: 20px 20px 20px 20px !important;
 			background-color: #fff !important;
 			-webkit-box-shadow: 0 0 5px 0 rgba(0,0,0,0.5);
-			box-shadow: 0 0 5px 0 rgba(0,0,0,0.5);
+			box-shadow: 0 1px 5px 0 rgba(0,0,0,0.5);
 			border-radius: 5px 5px 5px 5px;
 		}
 		
@@ -70,19 +70,6 @@
 			background-position: center center;
 		}
 		
-		.add-on {
-			position: absolute;
-			width: 100%;
-			height: 100%;
-			top: 0px;
-			left: 0px;
-			z-index: 99;
-		}
-		
-		.form-group-inner-container {
-			position: relative;
-		}
-		
 	</style>
  
     <!-- Bootstrap -->
@@ -94,6 +81,7 @@
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="/processJobInquiry/assets/vendor/jquery/jquery-3.2.1.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="/processJobInquiry/assets/vendor/bootstrap/js/moment-with-locales.min.js"></script>
     <script src="/processJobInquiry/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
 	<script src="/processJobInquiry/assets/vendor/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
 	<script src="/processJobInquiry/assets/js/main-applicationForm.js"></script>
@@ -124,15 +112,8 @@
 			<input type="text" name="tel" class="form-control" placeholder="Tel.Number">
 		</div>
 		<div class="form-group">
-			<div id="datetimepicker4" class="input-append date">
-			<label for="Birthday">Birthday</label>
-				<div class="form-group-inner-container">
-					<input data-format="yyyy-MM-dd" type="text" name="birthday" class="form-control" placeholder="" />
-					<span class="add-on">
-						<i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
-					</span>
-				</div>
-			</div>
+			<label for="Study">Birthday</label>
+			<input type='text' class="form-control" id='datetimepicker' placeholder="Birthday"/>
 		</div>
 		<div class="form-group">
 			<label for="Study">Study</label>

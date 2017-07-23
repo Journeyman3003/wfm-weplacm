@@ -4,8 +4,9 @@ $(document).ready(function() {
 	
 	getProcessId();
 		
-	$('#datetimepicker4').datetimepicker({
-		pickTime: false
+	$('#datetimepicker').datetimepicker({
+		viewMode: 'years',
+		format: 'YYYY-MM-DD'
 	});
 	
 	$('.submit-button').click(function() {
