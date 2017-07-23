@@ -1,6 +1,12 @@
 $(document).ready(function() {
 	
+	$(window).scrollTop(0);
+	
 	getProcessId();
+		
+	$('#datetimepicker4').datetimepicker({
+		pickTime: false
+	});
 	
 	$('.submit-button').click(function() {
 		submitApplicationForm();
