@@ -110,7 +110,6 @@
     </bpmn:intermediateCatchEvent>
     <bpmn:eventBasedGateway id="eventBasedGatewayPaymentReceivedXORNewRequestReceived" name="Customer satisfied?">
       <bpmn:incoming>SequenceFlow_1hbj513</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_1thv7m8</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1ltcxnv</bpmn:outgoing>
       <bpmn:outgoing>SequenceFlow_09aqgw9</bpmn:outgoing>
     </bpmn:eventBasedGateway>
@@ -334,9 +333,8 @@
     <bpmn:sequenceFlow id="SequenceFlow_174eb9v" sourceRef="closingXORNewInquiry" targetRef="eventBasedGatewayApplicationReceivedXORApplicationDeadlineReached" />
     <bpmn:sendTask id="NotifyCustomerNoCV2" name="Notify Customer:&#10;no CVs available" camunda:class="org.wwu.bpm.wfm.weplacm.processJobInquiry.sendMessages.NotifyCustomerNoCV">
       <bpmn:incoming>SequenceFlow_11wu7zw</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1thv7m8</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_0iprm3j</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:sequenceFlow id="SequenceFlow_1thv7m8" sourceRef="NotifyCustomerNoCV2" targetRef="eventBasedGatewayPaymentReceivedXORNewRequestReceived" />
     <bpmn:exclusiveGateway id="ExclusiveGateway_0e81axv">
       <bpmn:incoming>SequenceFlow_07y85n7</bpmn:incoming>
       <bpmn:incoming>SequenceFlow_1pg667k</bpmn:incoming>
@@ -344,6 +342,10 @@
       <bpmn:incoming>SequenceFlow_0jrl53f</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_11wu7zw</bpmn:outgoing>
     </bpmn:exclusiveGateway>
+    <bpmn:endEvent id="EndEventNoCVs" name="No CVs were left">
+      <bpmn:incoming>SequenceFlow_0iprm3j</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_0iprm3j" sourceRef="NotifyCustomerNoCV2" targetRef="EndEventNoCVs" />
   </bpmn:process>
   <bpmn:process id="processCandidate" isExecutable="false" />
   <bpmn:process id="processWBIG" isExecutable="false" />
@@ -1126,12 +1128,17 @@
           <dc:Bounds x="1645.5" y="432" width="0" height="13" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_1thv7m8_di" bpmnElement="SequenceFlow_1thv7m8">
-        <di:waypoint xsi:type="dc:Point" x="4731" y="607" />
-        <di:waypoint xsi:type="dc:Point" x="5116" y="607" />
-        <di:waypoint xsi:type="dc:Point" x="5116" y="479" />
+      <bpmndi:BPMNShape id="EndEvent_0hodktn_di" bpmnElement="EndEventNoCVs">
+        <dc:Bounds x="4848.382271468145" y="589" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="4878.5" y="585.5" width="90" height="13" />
+          <dc:Bounds x="4825" y="628" width="83" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0iprm3j_di" bpmnElement="SequenceFlow_0iprm3j">
+        <di:waypoint xsi:type="dc:Point" x="4731" y="607" />
+        <di:waypoint xsi:type="dc:Point" x="4848" y="607" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="4789.5" y="585" width="0" height="13" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
