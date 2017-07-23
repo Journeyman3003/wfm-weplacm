@@ -19,9 +19,12 @@
     <script src="/processJobInquiry/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
 	<script src="/processJobInquiry/assets/vendor/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
 	<script src="/processJobInquiry/assets/js/main.js"></script>
+	
+	
+	
   </head>
   <body>
-  	<form action="/processJobInquiry/receive-cv" method="post" class="ajax">
+  	<form id ="appform" name = "cvform"> <!--  action="/processJobInquiry/receive-cv" method="post" class="ajax">-->
 	<div class="container">
 		<div class="jumbotron">
 		<h2>Application Form</h2>
@@ -87,14 +90,32 @@
 			<textarea class="form-control" rows="5" id="Practical Experience" name="experience" placeholder="Practical Experience"></textarea>
 		</div>
 		<div class="form-group">
-			<input type="hidden" name="processId" value=getFirstParameter();>
+			<input type="hidden" name="processId" value="">
 		</div>
 		<script>
 		function getProcessId(){
 				return decodeURIComponent(location.search.substring.split("processId=")[1]);
 			}
 		</script>
-		<button type="submit" value="Send" class = "btn">Submit</button>
+		<script type="text/javascript">
+      $('#appform').submit(function(event) {
+    	  alert("I am about to POST this:");
+         var frm = $(this);
+         var dat = JSON.stringify(frm.serializeArray()); 
+
+         alert("I am about to POST this:\n\n" + dat);
+
+         $.ajax({
+             type: "POST",
+             url: "http://localhost:8080/processJobInquiry/receive-cv",
+             data: dat,
+             success: function(){},
+             dataType: "json",
+             contentType : "application/json"
+         });
+      });   
+   </script>
+		<button type="submit" value="Send" class ="btn" onClick="document.cvform.processId.value = getProcessId();">Submit</button>
 	</div>
 	</form>
   </body>
