@@ -24,7 +24,7 @@ public class HttpClient {
 //	post.setHeader("Content-type", "application/json");
 //	HttpResponse  response = httpClient.execute(post);
 //}
-	public static void postJobInquiryApproval(String url, String processInstanceId) throws IOException {
+	public static void postJobInquiryRejection(String url, String processInstanceId) throws IOException {
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 		try {
 			
@@ -47,7 +47,7 @@ public class HttpClient {
 		}
 	}
 	
-	public static void postJobInquiryRejection(String url, JobInquiryApproval jobApproval) throws IOException {
+	public static void postJobInquiryApproval(String url, JobInquiryApproval jobApproval) throws IOException {
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 		try {			
 		    HttpPost httppost = new HttpPost(url);

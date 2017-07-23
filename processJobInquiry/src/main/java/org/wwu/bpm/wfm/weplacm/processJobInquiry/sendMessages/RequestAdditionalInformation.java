@@ -14,15 +14,12 @@ public class RequestAdditionalInformation implements JavaDelegate{
 	private final static Logger LOGGER = Logger.getLogger("LOAN-REQUESTS");
 
 	public void execute(DelegateExecution execution) throws Exception {
-	  LOGGER.info("Processing request by '" + execution.getVariable("customerId") + "'...");
-	  LOGGER.info("Obtaining ProcessInstanceId of Supplicant...");
-	  JobInquiry jobInquiry = (JobInquiry) execution.getVariable("jobInquiry");
-	  LOGGER.info("Obtaining ProcessInstanceId of Supplicant:" + jobInquiry.getProcessId() +" ...");
-	  String ownProcessInstanceId = execution.getProcessInstanceId();
-	  LOGGER.info("Obtaining own ProcessInstanceId:" + ownProcessInstanceId +" ...");
-	  JobInquiryApproval jobApproval = new JobInquiryApproval(jobInquiry.getProcessId(),ownProcessInstanceId);
-	  HttpClient.postJobInquiryRejection(Util.WBIG_BASE_URL + "/" + Util.WBIG_REQUEST_ADDITIONAL_URI, jobApproval);
-	  LOGGER.info("Sent HTTP requeist for additional information to "+ Util.WBIG_BASE_URL + "/" + Util.WBIG_REQUEST_ADDITIONAL_URI+ " ..."); 	
-	}	
+		LOGGER.info("Processing request by '" + execution.getVariable("customerId") + "'...");
+		LOGGER.info("Obtaining ProcessInstanceId of Supplicant...");
+		JobInquiry jobInquiry = (JobInquiry) execution.getVariable("jobInquiry");
+		LOGGER.info("Obtaining ProcessInstanceId of Supplicant:" + jobInquiry.getProcessId() +" ...");
+		HttpClient.postJobInquiryRejection(Util.WBIG_BASE_URL + "/" + Util.WBIG_APPROVE_JOB_URI, jobInquiry.getProcessId());
+		LOGGER.info("Sent HTTP request for approval of job to " +Util.WBIG_BASE_URL + "/" + Util.WBIG_APPROVE_JOB_URI +" ...");		
+		}	
 	
 }
