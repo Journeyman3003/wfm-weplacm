@@ -13,21 +13,21 @@
 	<link rel="stylesheet" href="/processJobInquiry/assets/vendor/bootstrap/css/bootstrap-theme.min.css">
 	<link rel="stylesheet" href="/processJobInquiry/assets/vendor/bootstrap/css/bootstrap-datetimepicker.min.css"/>	
 	
-			 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="/processJobInquiry/assets/vendor/jquery/jquery-3.2.1.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="/processJobInquiry/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
 	<script src="/processJobInquiry/assets/vendor/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
-	<script src="/processJobInquiry/assets/js/main.js"></script>
+	<script src="/processJobInquiry/assets/js/main-applicationForm.js"></script>
 	
 	
 	
   </head>
   <body>
-  	<form id ="appform" name = "cvform"> <!--  action="/processJobInquiry/receive-cv" method="post" class="ajax">-->
+  	<form id="appform" name="cvform"> <!--  action="/processJobInquiry/receive-cv" method="post" class="ajax">-->
 	<div class="container">
 		<div class="jumbotron">
-		<h2>Application Form</h2>
+		<h2>WEPLACM Application Form</h2>
 		</div>
 		<div class="form-group">
 			<label for="Last Name">Name</label>
@@ -89,33 +89,10 @@
 			<label for="Practical Experience">Practical Experience</label>
 			<textarea class="form-control" rows="5" id="Practical Experience" name="experience" placeholder="Practical Experience"></textarea>
 		</div>
-		<div class="form-group">
-			<input type="hidden" name="processId" value="">
-		</div>
-		<script>
-		function getProcessId(){
-				return decodeURIComponent(location.search.substring.split("processId=")[1]);
-			}
-		</script>
-		<script type="text/javascript">
-      $('#appform').submit(function(event) {
-    	  alert("I am about to POST this:");
-         var frm = $(this);
-         var dat = JSON.stringify(frm.serializeArray()); 
-
-         alert("I am about to POST this:\n\n" + dat);
-
-         $.ajax({
-             type: "POST",
-             url: "http://localhost:8080/processJobInquiry/receive-cv",
-             data: dat,
-             success: function(){},
-             dataType: "json",
-             contentType : "application/json"
-         });
-      });   
-   </script>
-		<button type="submit" value="Send" class ="btn" onClick="document.cvform.processId.value = getProcessId();">Submit</button>
+		<!-- div class="form-group">
+			<input class="processId-field" type="hidden" name="processId" value="">
+		</div -->
+		<div class="submit-button btn">Submit</div>
 	</div>
 	</form>
   </body>
