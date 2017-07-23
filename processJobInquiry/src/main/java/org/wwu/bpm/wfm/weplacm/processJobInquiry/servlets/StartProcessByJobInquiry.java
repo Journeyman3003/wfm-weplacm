@@ -42,23 +42,21 @@ public class StartProcessByJobInquiry extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
-		ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
-		RuntimeService runtimeService = processEngine.getRuntimeService();
+//		ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
+//		RuntimeService runtimeService = processEngine.getRuntimeService();
 		PrintWriter out = response.getWriter();
-		String info = request.getParameter("info");
-		ProcessInstance processInstance;
-		if (null == info) {
-		processInstance = runtimeService.startProcessInstanceByMessage("JobInformation");
-		}
-		else {
-		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("info", info);
-		processInstance = runtimeService.startProcessInstanceByMessage("JobInformation", map);
-		}
+//		String info = request.getParameter("info");
+//		ProcessInstance processInstance;
+//		if (null == info) {
+//		processInstance = runtimeService.startProcessInstanceByMessage("JobInformation");
+//		}
+//		else {
+//		Map<String,Object> map = new HashMap<String,Object>();
+//		map.put("info", info);
+//		processInstance = runtimeService.startProcessInstanceByMessage("JobInformation", map);
+//		}
 		out.println("<html><body>");
-		out.println("<h1>Process Instance Started</h1>");
-		out.println("<p>ID: " + processInstance.getId() + "</p>");
-		out.println("<p>Info: " + info + "</p>");
+		out.println("<h1>Nothing/h1>");
 		out.println("</body></html>");
 	}
 	/**
