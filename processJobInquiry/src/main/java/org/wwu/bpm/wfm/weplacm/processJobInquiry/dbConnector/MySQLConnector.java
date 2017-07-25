@@ -17,18 +17,14 @@ import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationExceptio
 
 /**
  * This class sets up a connection to a MySQL-DB.
- * Scheme has to be called "weplacm", username and
- * password need to be "root", "root".
+ * username and password need to be "root", "root".
  * 
  * Use MySQLConnector.getConnection() to get an 
  * instance.
  * 
  * When calling getConnection, the tables candidates,
  * skills and candidates_skill_matching will be 
- * generated automatically, as well as a set of 5
- * candidates, 3 skills and 3 links between candidates
- * and skills. If this should not happen, change the
- * variable autogenerate to false.
+ * generated automatically.
  * @author oliver
  *
  */
@@ -38,7 +34,7 @@ public class MySQLConnector {
 	private static String dbName="weplacm";
 	private static String dbUser="root";
 	private static String dbPass="root";
-	private static boolean autogenerate = true;
+	private static boolean autogenerate = false;
 
 	private static Connection con;
 
@@ -68,26 +64,8 @@ public class MySQLConnector {
 		}
 
 	}
-	
+
 	public static void main(String [] args){
-//		Candidate c = new Candidate();
-//		c.setEmail("test@test.de");
-//		c.setName("Test");
-//		c.addSkill("test1");
-//		c.addSkill("test2");
-//		addCandidateToDatabase(c);
-//		
-//		c.setEmail("alias@test.de");
-//		c.setName("Test2");
-//		c.addSkill("test1");
-//		c.addSkill("test2");
-//		addCandidateToDatabase(c);
-//		
-//		ArrayList<Skill> skills = new ArrayList<>();
-//		skills.add(new Skill("test1"));
-//		skills.add(new Skill("test2"));
-//		getCandidatesWithSkill(skills);
-			
 	}
 	
 	/**
@@ -101,17 +79,19 @@ public class MySQLConnector {
 		StringBuilder sb = new StringBuilder();
 		skills.forEach(skill -> sb.append("'"+skill.getName()+"' "));
 		String temp = sb.toString().trim().replace(" ", ",");
-		temp = "SELECT a.id_candidate, a.candidatename, a.email "
-						+"FROM (SELECT * "
-						+"FROM candidates "
+		temp = "SELECT b.id_candidate, b.candidatename, b.email "
+						+"FROM (SELECT count(a.id_candidate) as counter, a.id_candidate, a.candidatename, a.email "
+						+"FROM (SELECT * FROM candidates "
 						+"INNER JOIN candidates_skill_matching ON candidates.id_candidate = candidates_skill_matching.candidate_id "
-						+"INNER JOIN skills ON candidates_skill_matching.skill_id = skills.id_skill) AS a "
-						+"GROUP BY a.id_candidate "
-						+"HAVING COUNT(skillname in ("+temp+"))="+skills.size()+";";
+						+"INNER JOIN skills ON candidates_skill_matching.skill_id = skills.id_skill WHERE skills.skillname in ("+temp+")) AS a "
+						+"GROUP BY a.id_candidate) AS b "
+						+"WHERE counter="+skills.size()+";";
+		System.out.println(temp);
 		try {
 			ResultSet rs = getConnection().createStatement().executeQuery(temp);
 			while(rs.next())
 				candidates.add(new Candidate(rs.getInt(1), rs.getString(2), rs.getString(3)));
+			System.out.println(candidates.size());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -1,3 +1,5 @@
+
+
 docker run -d --name camunda -p 8080:8080 camunda/camunda-bpm-platform:latest
 
 docker cp processJobInquiry-0.0.1-SNAPSHOT.war camunda:/camunda/webapps/processJobInquiry.war
